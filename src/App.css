@@ -1,32 +1,117 @@
-.App {
-  text-align: center;
+a {
+  text-decoration: none !important;
+}
+.body {
+  background: #e6ecf0;
+}
+.nav.custom-css {
+  font-weight: bold;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+   background: #1DA1F2 !important;
+   color: #ffffff;
+}
+.nav-pills-custom>li>a {
+	color: lightgrey;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.nav-pills-custom>li>a:focus,
+.nav-pills-custom>li>a:hover {
+	background: none;
+	color: grey;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.panel-custom>.panel-heading {
+	background: none;
+  border-bottom: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	background-color: #337AB7;
+}
+.form-control-nav{
+	background-color:#F0FFFF;
+  border: lightgrey solid 1px;
+	border-radius:15px;
+}
+body{
+	background-color: #F0FFFF;
+}
+.navbar-default .navbar-collapse, .navbar-default{
+background-color: white;
+}
+.panel-footer{
+  background: none;
+}
+.panel-footer a {
+  color: #1DA1F2;
+}
+.well{
+	background-color: lightcyan;
+}
+a{
+	color:#60A6C1;
+}
+div.panel-heading{
+	padding-top:15px;
+	padding-bottom: 0px;
+}
+.form-control-feedback{
+	line-height:27px;
+}
+.panel-info{
+	border:1px lightgrey solid;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button.tweet {
+  background: #1DA1F2;
+  border: none;
+}
+input.search.custom-css {
+  background-color: #edf1f4;
+  padding-left: 10px;
+  width: 200px;
+  
+}
+div.search {
+  margin-right: 50px;
+}
+.user-info p{
+  margin-top: -5px;
+}
+
+.tweets-tag, 
+.following-tag, 
+.followers-tag {
+  color: #657786;
+  cursor: pointer;
+}
+.tweets-tag p, 
+.following-tag p, 
+.followers-tag p{
+  font-size: 11px;
+}
+.tweets-tag a, 
+.following-tag a, 
+.followers-tag a{
+  font-size: 14px;
+  color: #1DA1F2;
+  font-weight: 600;
+}
+
+.trends a {
+  color: #1DA1F2;
+  font-weight: 600;
+}
+
+.panel-custom>.panel-heading h3 {
+  margin-right: 15px;
+}
+.panel-custom>.panel-heading a {
+  font-size: 12px;
+  color: #1DA1F2;
+  font-weight: 500;
+  margin-right: 10px;
 }
