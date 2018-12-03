@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const Navbar = props => {
     return (
@@ -8,13 +9,13 @@ const Navbar = props => {
                     <div className="navbar-collapse navbar-collapse-1 collapse" aria-expanded="true">
                         <ul className="nav navbar-nav custom-css">
                             <li className="active">
-                                <a href="/"><span className="glyphicon glyphicon-home" /> Home</a>
+                                <Link to="/"><span className="glyphicon glyphicon-home" /> Home</Link>
                             </li>
                             <li>
-                                <a href="/"><span className="glyphicon glyphicon-bell" /> Notifications</a>
+                                <Link to="/"><span className="glyphicon glyphicon-bell" /> Notifications</Link>
                             </li>
                             <li>
-                                <a href="/"><span className="glyphicon glyphicon-envelope" /> Messages</a>
+                                <Link to="/"><span className="glyphicon glyphicon-envelope" /> Messages</Link>
                             </li>
                         </ul>
                         <div className="navbar-form navbar-right">

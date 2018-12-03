@@ -3,6 +3,7 @@ a {
 }
 .body {
   background: #e6ecf0;
+  min-height: 100vh;
 }
 .nav.custom-css {
   font-weight: bold;
@@ -118,4 +119,16 @@ div.search {
 
 .postbox {
   background-color: #E8F5FD;
+}
+
+.panel-custom.user-info h3{
+  font-size: 22px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.width-300 {
+  width: 300px;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import UserInfo from '../Layout/UserInfo';
 import Trends from '../Layout/Trends';
-import PostBox from '../HomePage/PostBox';
-import PostList from '../HomePage/PostList';
 import FollowBox from '../HomePage/FollowBox';
-const HomePage = () => {
+import EditUser from '../AccountPage/EditUser';
+
+const AccountPage = () => {
     return (
         <div>
             <div className="container">
@@ -14,13 +14,7 @@ const HomePage = () => {
                         <Trends />
                     </div>
                     <div className="col-sm-6">
-                        <div className="panel panel-info">
-                            <PostBox />
-                            <PostList />
-                        </div>
-                        <br />
-                        <br />
-                        <br />
+                        <EditUser />
                     </div>
                     <div className="col-sm-3">
                         <FollowBox />
@@ -31,4 +25,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default AccountPage;

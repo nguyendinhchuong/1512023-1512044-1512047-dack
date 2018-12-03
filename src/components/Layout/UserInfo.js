@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const UserInfo = () => {
     return (
         <div>
             <div className="panel panel-default">
                 <div className="panel-body">
-                    <a href="/"><img className="img-responsive" alt="demo" src="http://placehold.it/800x500" /></a>
+                    <Link to="/user"><img className="img-responsive" alt="demo" src="http://placehold.it/800x500" /></Link>
                     <div className="user-info">
                         <h4>Ngoc Bao</h4>
                         <p>@dieu_bao</p>

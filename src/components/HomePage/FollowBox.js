@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom"
 
 const FollowBox = () => {
     return (
@@ -8,8 +9,8 @@ const FollowBox = () => {
                     <h3 className="panel-title">
                         Who to follow
             </h3>
-                    <a href="/">Refresh</a>
-                    <a href="/">View all</a>
+                    <Link to="/">Refresh</Link>
+                    <Link to="/">View all</Link>
                 </div>
                 <div className="panel-body">
                     <div className="media">
@@ -18,10 +19,10 @@ const FollowBox = () => {
                         </div>
                         <div className="media-body">
                             <h4 className="media-heading">Nome e cognome</h4>
-                            <a href="/" className="btn btn-default btn-xs">
+                            <Link to="/" className="btn btn-default btn-xs">
                                 +
                   <span className="glyphicon glyphicon-user"></span> Follow
-                </a>
+                </Link>
                         </div>
                     </div>
                     <div className="media">
@@ -30,10 +31,10 @@ const FollowBox = () => {
                         </div>
                         <div className="media-body">
                             <h4 className="media-heading">Nome e cognome</h4>
-                            <a href="/" className="btn btn-default btn-xs">
+                            <Link to="/" className="btn btn-default btn-xs">
                                 +
                   <span className="glyphicon glyphicon-user"></span> Follow
-                </a>
+                </Link>
                         </div>
                     </div>
                     <div className="media">
@@ -42,17 +43,17 @@ const FollowBox = () => {
                         </div>
                         <div className="media-body">
                             <h4 className="media-heading">Nome e cognome</h4>
-                            <a href="/" className="btn btn-default btn-xs">
+                            <Link to="/" className="btn btn-default btn-xs">
                                 +
                   <span className="glyphicon glyphicon-user"></span> Follow
-                </a>
+                </Link>
                         </div>
                     </div>
                 </div>
                 <div className="panel-footer">
-                    <a href="/">
+                    <Link to="/">
                         <span className="glyphicon glyphicon-user"></span> Find people you know
-            </a>
+                    </Link>
                 </div>
             </div>
         </div>
