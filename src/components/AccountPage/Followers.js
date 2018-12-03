@@ -7,7 +7,7 @@ const Followers = () => {
                 <div className="panel-heading">
                     <h3 className="panel-title">
                         Followers
-            </h3>
+                    </h3>
                 </div>
                 <div className="panel-body">
                     <div className="media">
@@ -16,7 +16,6 @@ const Followers = () => {
                                 <FollowCard></FollowCard>
                                 <FollowCard></FollowCard>
                                 <FollowCard></FollowCard>
-                               
                             </div>
                         </div>
                     </div>

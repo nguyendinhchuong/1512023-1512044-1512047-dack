@@ -1,9 +1,9 @@
 import React from 'react';
-import UserInfo from '../Layout/UserInfo';
-import Trends from '../Layout/Trends';
-import PostBox from '../HomePage/PostBox';
-import PostList from '../HomePage/PostList';
-import FollowBox from '../Layout/FollowBox';
+import UserInfo from '../../components/Layout/UserInfo';
+import Trends from '../../components/Layout/Trends';
+import FollowBox from '../../components/Layout/FollowBox';
+import PostBox from '../../components/Post/PostBox';
+import PostList from '../../components/Post/PostList';
 const HomePage = () => {
     return (
         <div>

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 import Navbar from './components/Layout/Navbar';
-import HomePage from './components/Page/HomePage';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import AccountPage from './components/Page/AccountPage';
-import ErrorPage from './components/Page/ErrorPage';
+
+
+import HomePage from './containers/HomePage/HomePage';
+import AccountPage from './containers/HomePage/AccountPage'
+import ErrorPage from './containers/HomePage/ErrorPage';
 
 
 class App extends Component {

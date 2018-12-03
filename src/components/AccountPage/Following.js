@@ -16,9 +16,7 @@ const Following = () => {
                                <FollowCard></FollowCard>
                                <FollowCard></FollowCard>
                                <FollowCard></FollowCard>
-                               <FollowCard></FollowCard>
-                             
-
+                               <FollowCard></FollowCard>                             
                             </div>
                         </div>
                     </div>
