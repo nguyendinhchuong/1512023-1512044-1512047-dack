@@ -1,5 +1,5 @@
 import React from 'react';
-
+import FollowCard from '../FollowCard/FollowCar'
 const Following = () => {
     return (
         <div>
@@ -13,34 +13,11 @@ const Following = () => {
                     <div className="media">
                         <div class="row">
                             <div class="col-xs-12 follow">
-                                <div class="panel panel-default follow-card">
-                                    <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                                    <div class="panel-body text-center">
-                                        <p>Follower Name 1</p>
-                                        <button className="btn btn-info"><i class="fa fa-minus"></i> Unfollow</button>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default follow-card">
-                                    <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                                    <div class="panel-body text-center">
-                                        <p>Follower Name 2</p>
-                                        <button className="btn btn-info"><i class="fa fa-minus"></i> Unfollow</button>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default follow-card">
-                                    <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                                    <div class="panel-body text-center">
-                                        <p>Follower Name 3</p>
-                                        <button className="btn btn-info"><i class="fa fa-minus"></i> Unfollow</button>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default follow-card">
-                                    <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                                    <div class="panel-body text-center">
-                                        <p>Follower Name 4</p>
-                                        <button className="btn btn-info"><i class="fa fa-minus"></i> Unfollow</button>
-                                    </div>
-                                </div>
+                               <FollowCard></FollowCard>
+                               <FollowCard></FollowCard>
+                               <FollowCard></FollowCard>
+                               <FollowCard></FollowCard>
+                             
 
                             </div>
                         </div>
