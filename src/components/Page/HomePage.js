@@ -3,7 +3,7 @@ import UserInfo from '../Layout/UserInfo';
 import Trends from '../Layout/Trends';
 import PostBox from '../HomePage/PostBox';
 import PostList from '../HomePage/PostList';
-import FollowBox from '../HomePage/FollowBox';
+import FollowBox from '../Layout/FollowBox';
 const HomePage = () => {
     return (
         <div>

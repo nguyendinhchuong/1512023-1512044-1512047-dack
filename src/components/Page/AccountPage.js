@@ -1,9 +1,11 @@
 import React from 'react';
 import UserInfo from '../Layout/UserInfo';
 import Trends from '../Layout/Trends';
-import FollowBox from '../HomePage/FollowBox';
+import FollowBox from '../Layout/FollowBox';
 import EditUser from '../AccountPage/EditUser';
-
+import { Route, Switch } from "react-router-dom";
+import Followers from '../AccountPage/Followers';
+import Following from '../AccountPage/Following';
 const AccountPage = () => {
     return (
         <div>
@@ -14,7 +16,13 @@ const AccountPage = () => {
                         <Trends />
                     </div>
                     <div className="col-sm-6">
-                        <EditUser />
+                        <div>
+                            <Switch>
+                                <Route exact path="/user/followers" component={Followers} />
+                                <Route exact path="/user/following" component={Following} />
+                                <Route exact path="/user/info" component={EditUser} />
+                            </Switch>
+                        </div>
                     </div>
                     <div className="col-sm-3">
                         <FollowBox />

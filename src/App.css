@@ -132,3 +132,25 @@ div.search {
 .width-300 {
   width: 300px;
 }
+
+.errorpage {
+  text-transform: uppercase;
+  font-size: 32px;
+  width: 100%;
+  margin: 100px auto;
+  text-align: center;
+}
+.follow {
+  width: 100%;
+}
+.follow-card {
+  margin: 20px;
+  width: 200px;
+  float: left;
+}
+.follow-card img {
+  width: 100%;
+}
+.follow-card button {
+  text-align: center;
+}

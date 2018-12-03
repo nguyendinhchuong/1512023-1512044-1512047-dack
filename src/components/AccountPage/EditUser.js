@@ -14,7 +14,7 @@ class EditUser extends Component {
                         <div className="media">
                             <label >Profile Picture</label>
                             <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                            <input type="file"/>
+                            <input type="file" />
                             <div className="media-body">
                                 <form>
                                     <div class="form-group mt-10">
@@ -36,7 +36,7 @@ class EditUser extends Component {
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Address</label>
-                                        <textarea class="form-control width-300"/>
+                                        <textarea class="form-control width-300" />
                                     </div>
                                     <button type="submit" className="btn btn-info">Save changes</button>
                                 </form>
