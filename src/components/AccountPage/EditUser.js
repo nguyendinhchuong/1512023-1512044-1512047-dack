@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 class EditUser extends Component {
     constructor(){
@@ -12,7 +13,14 @@ class EditUser extends Component {
             Address:''
         }
     }
+    handleChange = (e)=>{
+        this.setState({
+            ...this.state,
+            [e.target.name]: e.target.value
+        })
+    }
     render() {
+        console.log(this.state);
         return (
             <div>
                 <div className="panel panel-default panel-custom user-info">
@@ -30,24 +38,24 @@ class EditUser extends Component {
                                 <form>
                                     <div class="form-group mt-10">
                                         <label>First Name</label>
-                                        <input type="text" class="form-control width-300" />
+                                        <input type="text" name="FirstName" class="form-control width-300" onChange={this.handleChange} />
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Last Name</label>
-                                        <input type="text" class="form-control width-300" />
+                                        <input type="text" name="LastName"class="form-control width-300" onChange={this.handleChange}/>
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Date Of Birth</label>
                                         <br></br>
-                                        <input type="date" id="start" name="trip-start" defaultValue="2018-07-22" min="1900-01-01" max="2018-12-31" />
+                                        <input type="date" id="start" name="Dob" defaultValue="2018-07-22" min="1900-01-01" max="2018-12-31" onChange={this.handleChange}/>
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Phone Number</label>
-                                        <input type="text" class="form-control width-300" />
+                                        <input type="text" name="Phone" class="form-control width-300" onChange={this.handleChange}/>
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Address</label>
-                                        <textarea class="form-control width-300" />
+                                        <textarea name="Address" class="form-control width-300" onChange={this.handleChange} />
                                     </div>
                                     <button type="submit" className="btn btn-info">Save changes</button>
                                 </form>
