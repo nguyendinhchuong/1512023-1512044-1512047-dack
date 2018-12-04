@@ -2,7 +2,12 @@ export default function reducer(
     state = {
         profilePhoto:'',
         name:'',
-        subname:''
+        subname:'',
+        first_name:'',
+        last_name:'',
+        Dob:'',
+        phoneNumber:'',
+        address:''
     }, action) {
         switch(action.type){
             case "FETCH_USER_FULFILLED":{
@@ -11,6 +16,17 @@ export default function reducer(
                     profilePhoto:action.payload.profilePhoto,
                     name:action.payload.name,
                     subname:action.payload.subname
+                }
+            }
+            case "UPDATE_PROFILE_INFO_FULFILLED":{
+                return{
+                    ...state,
+                    profilePhoto:action.payload.profilePhoto,
+                    first_name:action.payload.first_name,
+                    last_name:action.payload.last_name,
+                    Dob:action.payload.Dob,
+                    phoneNumber:action.payload.phoneNumber,
+                    address:action.payload.address
                 }
             }
             default:{

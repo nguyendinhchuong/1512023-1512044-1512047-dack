@@ -1,15 +1,22 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import PostItem from './PostItem'
-const PostList = () => {
+const PostList = ({tweets}) => {
     return (
         <div>
             <div className="panel-body">
-                <PostItem></PostItem>
-                <PostItem></PostItem>
-                <PostItem></PostItem>                            
+                {
+                    tweets.map((tweet)=><PostItem tweet={tweet}/>)
+                }                           
             </div>
         </div>
     );
 };
 
-export default PostList;
+const mapStateToProps = (state)=>{
+    return{
+        tweets: state.tweetReducer.tweets
+    }
+}
+
+export default connect(mapStateToProps)(PostList);

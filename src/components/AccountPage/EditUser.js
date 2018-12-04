@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 
 class EditUser extends Component {
+    constructor(){
+        super();
+        this.state={
+            profilePicture:'',
+            FirstName:'',
+            LastName:'',
+            DoB:'',
+            Phone: '',
+            Address:''
+        }
+    }
     render() {
         return (
             <div>

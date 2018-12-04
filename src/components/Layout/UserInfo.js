@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom"
+import { connect } from 'react-redux'
 
-const UserInfo = () => {
+const UserInfo = ({user, follow}) => {
     return (
         <div>
             <div className="panel panel-default">
                 <div className="panel-body">
-                    <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/800x500" /></Link>
+                    <Link to="/user/info"><img className="img-responsive" alt="demo" src={user.profilePhoto} /></Link>
                     <div className="user-info">
-                        <h4>Ngoc Bao</h4>
-                        <p>@dieu_bao</p>
+                        <h4>{user.name}</h4>
+                        <p>{user.subname}</p>
                     </div>
                     <div className="row">
                         <div className="col-xs-3 tweets-tag">
@@ -22,7 +23,7 @@ const UserInfo = () => {
                             <Link to="/user/following" >
                                 <h5>
                                     <p>FOLLOWING</p>
-                                    <a href="/">251</a>
+                                    <a href="/">{follow.followingNum}</a>
                                 </h5>
                             </Link>
                         </div>
@@ -30,7 +31,7 @@ const UserInfo = () => {
                             <Link to="/user/followers" >
                                 <h5>
                                     <p>FOLLOWERS</p>
-                                    <a href="/">153</a>
+                                    <a href="/">{follow.followerNum}</a>
                                 </h5>
                             </Link>
                         </div>
@@ -41,4 +42,11 @@ const UserInfo = () => {
     );
 };
 
-export default UserInfo;
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        user: state.userReducer,
+        follow: state.followReducer
+    }
+}
+export default connect(mapStateToProps)(UserInfo);

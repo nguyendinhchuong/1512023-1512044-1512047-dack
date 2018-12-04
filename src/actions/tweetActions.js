@@ -1,4 +1,4 @@
-export function fetchTweets() {
+export function fetchTweet() {
     return {
         type: "FETCH_TWEET_FULFILLED",
         payload: {
@@ -24,4 +24,18 @@ export function commentTweets() {
         }       
     }
 }
+export function fetchTweets() {
+    return {
+        type: "FETCH_TWEETS",
+        payload:{
+            tweeets
+        }       
+    }
+}
 
+export function getTweetNumber(){
+    return{
+        type: "GET_TWEET_NUMBER",
+        payload
+    }
+}

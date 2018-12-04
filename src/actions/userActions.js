@@ -1,8 +1,8 @@
-export function setProfileInfo(data) {
+export function updateProfileInfo(data) {
     return {
-        type: "SET_PROFILE_INFO_FULFILLED",
+        type: "UPDATE_PROFILE_INFO_FULFILLED",
         payload: {
-            profilePicture: data.profilePicture,
+            profilePhoto: data.profilePhoto,
             first_name: data.first_name,
             last_name: data.last_name,
             DoB: data.DoB,

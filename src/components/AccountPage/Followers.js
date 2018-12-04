@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import FollowCard from '../FollowCard/FollowCar'
-const Followers = () => {
+const Followers = ({follow}) => {
     return (
         <div>
             <div className="panel panel-default panel-custom user-info">
@@ -13,9 +14,9 @@ const Followers = () => {
                     <div className="media">
                         <div class="row">
                             <div class="col-xs-12 follow">
-                                <FollowCard></FollowCard>
-                                <FollowCard></FollowCard>
-                                <FollowCard></FollowCard>
+                                {
+                                    follow.map((obj)=><FollowCard followers={obj}/>)
+                                }
                             </div>
                         </div>
                     </div>
@@ -27,4 +28,9 @@ const Followers = () => {
     );
 };
 
-export default Followers;
+const mapStateToProps = (state) => {
+    return {
+        follow: state.followReducer.followers
+    }
+}
+export default connect(mapStateToProps)(Followers);
