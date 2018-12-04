@@ -3,8 +3,8 @@ export default function reducer(
         profilePhoto:'',
         name:'',
         subname:'',
-        first_name:'',
-        last_name:'',
+        first_name:'Monkey',
+        last_name:'King',
         Dob:'',
         phoneNumber:'',
         address:''
@@ -21,10 +21,10 @@ export default function reducer(
             case "UPDATE_PROFILE_INFO_FULFILLED":{
                 return{
                     ...state,
-                    profilePhoto:action.payload.profilePhoto,
+                    //profilePhoto:action.payload.profilePhoto,
                     first_name:action.payload.first_name,
                     last_name:action.payload.last_name,
-                    Dob:action.payload.Dob,
+                    //Dob:action.payload.Dob,
                     phoneNumber:action.payload.phoneNumber,
                     address:action.payload.address
                 }

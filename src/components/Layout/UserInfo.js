@@ -9,7 +9,7 @@ const UserInfo = ({user, follow}) => {
                 <div className="panel-body">
                     <Link to="/user/info"><img className="img-responsive" alt="demo" src={user.profilePhoto} /></Link>
                     <div className="user-info">
-                        <h4>{user.name}</h4>
+                        <h4>{[user.first_name, user.last_name].join(' ')}</h4>
                         <p>{user.subname}</p>
                     </div>
                     <div className="row">

@@ -1,7 +1,7 @@
 export default function reducer(
     state = {
-        followerNum: null,
-        followingNum: null,
+        followerNum: 0,
+        followingNum: 0,
         followers:[],
         followings:[]
     }, action) {
@@ -30,6 +30,7 @@ export default function reducer(
                 followings:action.payload
             }
         }
+            
         default: {
             return state;
         }
