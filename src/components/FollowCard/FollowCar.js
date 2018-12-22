@@ -2,9 +2,6 @@ import React from "react";
 
 
 class FollowCard extends React.Component {
-    constructor(props){
-        super(props);
-    }
   render() {
     return (
         <div class="panel panel-default follow-card">
