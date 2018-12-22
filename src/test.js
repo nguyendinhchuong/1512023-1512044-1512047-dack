@@ -1,25 +1,26 @@
-const transaction = require('./lib/transaction');
+
 publicKey = "GCG34BG4ZPYARYHMYHVPJI2YW3AAJBGK7ZAZN3NSSL3AKADOZTNUQHX3"
 
 
 
 //=============
-const { sign, encode, decode, verify, hash } = require('../lib/tx');
+const { sign, encode, decode, verify, hash } = require('./lib/tx');
   let tx = {
-    account: 'GBOVRS6DWD56GOIEYHFFYRLUBCV3JPQXRZ7YY4B34IHK6KWO4MQXGNZF',
+    account: '  ',
     version: 1,
     sequence: 1,
     memo: Buffer.alloc(0),
-    operation: 'create_account',
+    operation: 'update_account',
     params: {
-      address: 'GDEIQC56URB2H6YDQQIUSDMF4WZUO6RA3O2HISYNUTP6FDMU7LIPAP3V'
+        key : 'name',
+        value: Buffer.from('M.Cong')
     }
   };
   console.log(tx);
-  sign(tx, 'SD6AU6SN3JTOOM6ESNXVE5JRHYNNQF3UDH2QFFKKBIWAWNV2POAWMDFK');
+  sign(tx, 'SCW3IM6XRZGUGQPL3JDKPAJBQSCCB7TWEEFVCMUQXSVWP43SEWZDBR2Q');
   console.log(tx);
   console.log(encode(tx).toString('hex'));
   
   //  const result = await axios.post(
-  //   https://gorilla.forest.network/broadcast_tx_commit?tx=_0x27GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI%27%22
+  //   https://gorilla.forest.network/broadcast_tx_commit?tx=0x27GAO4J5RXQHUVVONBDQZSRTBC42E3EIK66WZA5ZSGKMFCS6UNYMZSIDBI%27%22
   // );
