@@ -2,18 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
 class EditUser extends Component {
-    constructor(props){
+    constructor(props) {
         super();
-        this.state={
-            profilePicture:'',
-            FirstName:'' || props.first_name,
-            LastName:'' || props.last_name,
-            DoB:'',
-            Phone: '',
-            Address:''
+        this.state = {
+            profilePicture: '',
+            FirstName: '' || props.first_name,
+            LastName: '' || props.last_name,
         }
     }
-    handleChange = (e)=>{
+    handleChange = (e) => {
         this.setState({
             ...this.state,
             [e.target.name]: e.target.value
@@ -23,7 +20,7 @@ class EditUser extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        this.props.updateUserInfo({ first_name: this.state.FirstName, last_name: this.state.LastName, phoneNumber: this.state.Phone, address: this.state.Address });
+        this.props.updateUserInfo({ first_name: this.state.FirstName, last_name: this.state.LastName});
     }
 
     render() {
@@ -49,20 +46,7 @@ class EditUser extends Component {
                                     </div>
                                     <div class="form-group mt-10">
                                         <label>Last Name</label>
-                                        <input type="text" name="LastName"class="form-control width-300" onChange={this.handleChange}/>
-                                    </div>
-                                    <div class="form-group mt-10">
-                                        <label>Date Of Birth</label>
-                                        <br></br>
-                                        <input type="date" id="start" name="Dob" defaultValue="2018-07-22" min="1900-01-01" max="2018-12-31" onChange={this.handleChange}/>
-                                    </div>
-                                    <div class="form-group mt-10">
-                                        <label>Phone Number</label>
-                                        <input type="text" name="Phone" class="form-control width-300" onChange={this.handleChange}/>
-                                    </div>
-                                    <div class="form-group mt-10">
-                                        <label>Address</label>
-                                        <textarea name="Address" class="form-control width-300" onChange={this.handleChange} />
+                                        <input type="text" name="LastName" class="form-control width-300" onChange={this.handleChange} />
                                     </div>
                                     <button type="submit" className="btn btn-info">Save changes</button>
                                 </form>
@@ -78,7 +62,7 @@ class EditUser extends Component {
     }
 }
 
-const mapStateToProps = state => ({user: state.userReducer});
+const mapStateToProps = state => ({ user: state.userReducer });
 
 const mapDispatchToProps = dispatch => ({
     updateUserInfo: info => dispatch({ type: 'UPDATE_PROFILE_INFO_FULFILLED', payload: info })

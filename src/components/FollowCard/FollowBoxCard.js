@@ -1,5 +1,4 @@
-import React, {Fragment} from "react";
-import { Link } from "react-router-dom"
+import React, { Fragment } from "react";
 
 class FollowBoxCard extends React.Component {
     renderFollow = () => {
@@ -35,7 +34,7 @@ class FollowBoxCard extends React.Component {
                 </div>
             </div>
         );
-  }
+    }
 }
 
 export default FollowBoxCard;
