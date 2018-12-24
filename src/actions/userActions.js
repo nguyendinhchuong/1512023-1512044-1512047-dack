@@ -12,14 +12,14 @@ export function updateProfileInfo(data) {
     }
 }
 
-export function fetchUser(name, subname, profilePhoto) {
+export function fetchUserData(data) {
     return {
         type: "FETCH_USER_FULFILLED",
         payload: {
-            profilePhoto: profilePhoto,
-            name: name,
-            subname: subname
+            account: data.account,
+            sequence: data.sequence,
+            amount: data.amount,
+            name: data.name
         }
     }
 }
-
