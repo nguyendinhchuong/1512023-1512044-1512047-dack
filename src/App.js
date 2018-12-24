@@ -16,12 +16,11 @@ class App extends Component {
 
   render() {
     return (
-
       <BrowserRouter>
         <div className="body">
+        <Navbar />
           <Switch>
             <Route path="/signin" component={SignInPage} />
-            <Navbar />
             <Route exact path="/" component={HomePage} />
             <Route path="/user" component={AccountPage} />
             <Route path="/exchange" component={ExchangePage} />
@@ -30,7 +29,6 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-
     );
   }
 }
