@@ -1,3 +1,3 @@
 export default {
-    baseRoute: 'https://komodo.forest.network'
+    baseRoute: 'https://zebra.forest.network'
 };
