@@ -24,9 +24,9 @@ class App extends Component {
 
   render() {
     return (
-
       <BrowserRouter>
         <div className="body">
+        <Navbar />
           <Switch>
             <Route exact path="/signin" component={SignInPage} />
             <PrivateRoute exact path="/" component={HomePage} />
@@ -37,7 +37,6 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-
     );
   }
 }
