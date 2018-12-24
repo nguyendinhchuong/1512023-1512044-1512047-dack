@@ -5,7 +5,9 @@ import PostBox from '../../components/Post/PostBox';
 import PostList from '../../components/Post/PostList';
 
 import axios from 'axios'
-import {decode} from '../../lib/tx'
+import { decode } from '../../lib/tx'
+import { connect } from 'react-redux'
+import { fetchUserData } from '../../actions/userActions'
 
 class HomePage extends Component {
     componentDidMount = () => {
@@ -26,18 +28,14 @@ class HomePage extends Component {
                     if (decResult.account === publicKey) {
                         switch (decResult.operation) {
                             case 'create_account':
-                                console.log('create_account')
                                 accountInfo.name = decResult.params.address
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
                             case 'payment':
-                                console.log('payment')
-                                console.log(decResult.params.amount)
                                 accountInfo.amount = accountInfo.amount - decResult.params.amount
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
                             case 'update_account':
-                                console.log('update_account')
                                 if (decResult.params.key === 'name') {
                                     accountInfo.name = decResult.params.value.toString('utf-8')
                                 }
@@ -50,12 +48,9 @@ class HomePage extends Component {
                     } else {
                         switch (decResult.operation) {
                             case 'create_account':
-                                console.log('create_account')
                                 accountInfo.name = decResult.params.address
                                 break;
                             case 'payment':
-                                console.log('payment')
-                                console.log(decResult.params.amount)
                                 accountInfo.amount = accountInfo.amount + decResult.params.amount
                                 break;
 
@@ -63,10 +58,11 @@ class HomePage extends Component {
                                 break;
                         }
                     }
+                    return 0
                 })
             })
             .then(() => {
-                console.log(accountInfo)
+                this.props.fetchUserData(accountInfo)
             })
     }
     render() {
@@ -95,5 +91,18 @@ class HomePage extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
 
-export default HomePage;
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchUserData: (data) => {
+            dispatch(fetchUserData(data))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

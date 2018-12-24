@@ -22,7 +22,7 @@ export default class Singleton {
         const { publicKey } = formData;
         const { data: { result: { total_count } } } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${publicKey}%27"`);
 
-        if (total_count != 0) {
+        if (total_count !== 0) {
             this.isAuthenticated = true;
             localStorage.setItem('publicKey', publicKey);
         }
