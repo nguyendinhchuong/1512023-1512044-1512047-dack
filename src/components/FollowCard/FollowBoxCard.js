@@ -28,9 +28,9 @@ class FollowBoxCard extends React.Component {
                 </div>
                 <div className="media-body">
                     <h4 className="media-heading">Nome e cognome</h4>
-                    <a className="btn btn-default btn-xs" onClick={_ => this.setState(prevState => ({ isFollowed: !prevState.isFollowed }))}>
+                    <span className="btn btn-default btn-xs" onClick={_ => this.setState(prevState => ({ isFollowed: !prevState.isFollowed }))}>
                         {this.renderFollow()}
-                    </a>
+                    </span>
                 </div>
             </div>
         );

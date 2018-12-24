@@ -6,7 +6,7 @@ const PostList = ({tweets}) => {
         <div>
             <div className="panel-body">
                 {
-                    tweets.map((tweet)=><PostItem tweet={tweet}/>)
+                    tweets.map((tweet, index)=><PostItem tweet={tweet} key={index}/>)
                 }                           
             </div>
         </div>

@@ -1,16 +1,17 @@
 import { applyMiddleware, createStore } from 'redux'
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers/rootReducer'
 
-const middleware = applyMiddleware(thunk, logger);
+// const middleware = applyMiddleware(thunk, logger);
+const middleware = applyMiddleware(thunk);
 
 const store = createStore(rootReducer, middleware);
 
 
-store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "http://placehold.it/500x500", name: "chuong", subname: "@chuong" } });
-// store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "123456", name: "bao", subname: "@cong" } });
+// store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "http://placehold.it/500x500", name: "chuong", subname: "@chuong" } });
+// // store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "123456", name: "bao", subname: "@cong" } });
 store.dispatch({
     type: "FETCH_TWEETS", payload: {
         tweets: [
@@ -84,6 +85,6 @@ store.dispatch({
         }
     ]
 });
-// store.dispatch({type:"LIKE_TWEET", payload:1});
-// store.dispatch({type:"COMMENT_TWEET", payload:"react redux"});
+store.dispatch({type:"LIKE_TWEET", payload:1});
+store.dispatch({type:"COMMENT_TWEET", payload:"react redux"});
 export default store;
