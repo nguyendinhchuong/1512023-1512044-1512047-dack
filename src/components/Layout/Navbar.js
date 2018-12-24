@@ -1,5 +1,12 @@
 import React from 'react';
-import { Link } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
+import AuthenticationService from '../../services/auth.service';
+
+function handleLogout(props) {
+    new AuthenticationService().logout(null, function () {
+        props.history.push('/signin'); 
+    });
+}
 
 const Navbar = props => {
     return (
@@ -24,8 +31,8 @@ const Navbar = props => {
                                     placeholder="Search..." />
                                 <span className="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" />
                             </div>
-                            <button className="btn btn-primary tweet" type="submit" aria-label="Left Align">
-                                <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span> Tweet
+                            <button className="btn btn-primary tweet" type="submit" aria-label="Left Align" onClick={() => handleLogout(props)}>
+                                Logout
                             </button>
                         </div>
                     </div>
@@ -36,4 +43,4 @@ const Navbar = props => {
 };
 
 
-export default Navbar;
+export default withRouter(Navbar);
