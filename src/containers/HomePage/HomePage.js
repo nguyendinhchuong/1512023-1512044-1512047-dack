@@ -17,6 +17,7 @@ class HomePage extends Component {
             amount: 0,
             name: null
         }
+        //let publicKey = 'GCG34BG4ZPYARYHMYHVPJI2YW3AAJBGK7ZAZN3NSSL3AKADOZTNUQHX3' 
         let publicKey = 'GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW'
         accountInfo.account = publicKey
         axios.get('https://komodo.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
