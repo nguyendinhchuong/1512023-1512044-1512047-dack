@@ -7,6 +7,8 @@ import FollowBox from '../../components/Layout/FollowBox';
 import EditUser from '../../components/AccountPage/EditUser';
 import Followers from '../../components/AccountPage/Followers';
 import Following from '../../components/AccountPage/Following';
+
+import FollowingBox from '../../components/Layout/Following'
 const AccountPage = () => {
     return (
         <div>
@@ -14,7 +16,7 @@ const AccountPage = () => {
                 <div className="row">
                     <div className="col-sm-3">
                         <UserInfo />
-                        <Trends />
+                        <FollowingBox />
                     </div>
                     <div className="col-sm-6">
                         <div>
