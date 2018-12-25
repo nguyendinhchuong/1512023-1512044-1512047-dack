@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import UserInfo from '../Layout/UserInfo'
 import { connect } from 'react-redux'
-import { encode, sign, hash } from '../../lib/tx'
+import { encode, sign } from '../../lib/tx'
 import Axios from 'axios'
 
 class CreateAccountPage extends Component {
@@ -30,7 +30,6 @@ class CreateAccountPage extends Component {
       }
       let secretKey = localStorage.getItem('secretKey')
       sign(crawTx, secretKey)
-      const hashTx = hash(crawTx)
       let encodedTx = encode(crawTx).toString('base64')
       Axios.post('https://zebra.forest.network:443',
         {
@@ -78,7 +77,7 @@ class CreateAccountPage extends Component {
                   <form onSubmit={this.handleSubmit}>
                     <div className="form-group mt-10">
                       <label>Public Key</label>
-                      <input type="text" name="publicKey" className="form-control width-500" onChange={this.handleChange} ref="publicKey"/>
+                      <input type="text" name="publicKey" className="form-control width-500" onChange={this.handleChange} ref="publicKey" />
                     </div>
                     <button type="submit" className="btn btn-info">Create account</button>
                   </form>

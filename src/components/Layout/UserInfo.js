@@ -1,48 +1,112 @@
-import React from 'react';
+import React, { Component } from 'react'
 import { Link } from "react-router-dom"
-import { connect } from 'react-redux'
 
-const UserInfo = ({ user, follow }) => {
-    return (
-        <div>
-            <div className="panel panel-default">
-                <div className="panel-body">
-                    <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
-                    <div className="user-info">
-                        <h4>{user.name}</h4>
-                        <p><strong>Balance: </strong> {user.amount} CEL</p>
-                        <p> = {user.amount / 100000000} TRE</p>
-                        <p><strong>Energy:</strong></p>
-                    </div>
-                    <div className="row">
-                        <div className="col-xs-3 tweets-tag">
-                            <h5>
-                                <p>TWEETS</p>
-                                <p>1,545</p>
-                            </h5>
+import axios from 'axios'
+import { decode } from '../../lib/tx'
+import { connect } from 'react-redux'
+import { fetchUserData } from '../../actions/userActions'
+
+
+
+class UserInfo extends Component {
+    componentDidMount = () => {
+        let accountInfo = {
+            account: null,
+            sequence: 0,
+            amount: 0,
+            name: null
+        }
+        let publicKey = localStorage.getItem('publicKey')
+        accountInfo.account = publicKey
+        accountInfo.name = publicKey
+        axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
+            .then(res => {
+                res.data.result.txs.map((block, index) => {
+                    // decode tx ra base64 moi bo vo ham decode
+                    let txDec = Buffer.from(block.tx, 'base64')
+                    let decResult = decode(txDec)
+                    if (decResult.account === publicKey) {
+                        switch (decResult.operation) {
+                            case 'create_account':
+                                // accountInfo.name = decResult.params.address
+                                accountInfo.sequence = accountInfo.sequence + 1
+                                break;
+                            case 'payment':
+                                accountInfo.amount = accountInfo.amount - decResult.params.amount
+                                accountInfo.sequence = accountInfo.sequence + 1
+                                break;
+                            case 'update_account':
+                                if (decResult.params.key === 'name') {
+                                    accountInfo.name = decResult.params.value.toString('utf-8')
+                                }
+                                accountInfo.sequence = accountInfo.sequence + 1
+                                break;
+
+                            default:
+                                break;
+                        }
+                    } else {
+                        switch (decResult.operation) {
+                            case 'create_account':
+                                accountInfo.name = decResult.params.address
+                                break;
+                            case 'payment':
+                                accountInfo.amount = accountInfo.amount + decResult.params.amount
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                    return 0
+                })
+            })
+            .then(() => {
+                this.props.fetchUserData(accountInfo)
+            })
+    }
+    render() {
+        return (
+            <div>
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
+                        <div className="user-info">
+                            <h4>{this.props.user.name}</h4>
+                            <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
+                            <p> = {this.props.user.amount / 100000000} TRE</p>
+                            <p><strong>Energy:</strong></p>
                         </div>
-                        <div className="col-xs-4 following-tag">
-                            <Link to="/user/following" >
+                        <div className="row">
+                            <div className="col-xs-3 tweets-tag">
                                 <h5>
-                                    <p>FOLLOWING</p>
-                                    <p>{follow.followingNum}</p>
+                                    <p>TWEETS</p>
+                                    <p>1,545</p>
                                 </h5>
-                            </Link>
-                        </div>
-                        <div className="col-xs-5 followers-tag">
-                            <Link to="/user/followers" >
-                                <h5>
-                                    <p>FOLLOWERS</p>
-                                    <p>{follow.followerNum}</p>
-                                </h5>
-                            </Link>
+                            </div>
+                            <div className="col-xs-4 following-tag">
+                                <Link to="/user/following" >
+                                    <h5>
+                                        <p>FOLLOWING</p>
+                                        <p>{this.props.follow.followingNum}</p>
+                                    </h5>
+                                </Link>
+                            </div>
+                            <div className="col-xs-5 followers-tag">
+                                <Link to="/user/followers" >
+                                    <h5>
+                                        <p>FOLLOWERS</p>
+                                        <p>{this.props.follow.followerNum}</p>
+                                    </h5>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        )
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -50,4 +114,12 @@ const mapStateToProps = (state) => {
         follow: state.followReducer
     }
 }
-export default connect(mapStateToProps)(UserInfo);
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchUserData: (data) => {
+            dispatch(fetchUserData(data))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
