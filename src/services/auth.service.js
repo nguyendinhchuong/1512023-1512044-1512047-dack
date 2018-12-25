@@ -4,12 +4,12 @@ import BlockchainAPI from '../configs/BlockchainAPI';
 
 export default class Singleton {
     static instance;
-    
+
     constructor() {
         if (Singleton.instance) {
             return Singleton.instance;
         }
-        
+
         this.isAuthenticated = localStorage.getItem('publicKey') !== null;
         Singleton.instance = this;
     }
@@ -18,11 +18,10 @@ export default class Singleton {
         if (this.isAuthenticated) {
             throw Error("Account has already been logged in!");
         }
-
         const { publicKey } = formData;
         const { data: { result: { total_count } } } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${publicKey}%27"`);
 
-        if (total_count != 0) {
+        if (parseInt(total_count, 10) !== 0) {
             this.isAuthenticated = true;
             localStorage.setItem('publicKey', publicKey);
         }
@@ -35,6 +34,7 @@ export default class Singleton {
         }
 
         localStorage.removeItem('publicKey');
+        localStorage.removeItem('secretKey');
         this.isAuthenticated = false;
         cb();
     }

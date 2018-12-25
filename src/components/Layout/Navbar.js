@@ -22,7 +22,7 @@ const Navbar = props => {
                                 <Link to="/exchange"><span className="glyphicon glyphicon-transfer" /> Exchane</Link>
                             </li>
                             <li>
-                                <Link to="/createacc"><span className="glyphicon glyphicon-user" /> Create account</Link>
+                                <Link to="/createaccount"><span className="glyphicon glyphicon-user" /> Create account</Link>
                             </li>
                         </ul>
                         <div className="navbar-form navbar-right">
