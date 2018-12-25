@@ -17,8 +17,9 @@ class HomePage extends Component {
             amount: 0,
             name: null
         }
-        let publicKey = 'GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW'
+        let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey
+        accountInfo.name = publicKey
         axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
                 res.data.result.txs.map((block, index) => {
@@ -28,7 +29,7 @@ class HomePage extends Component {
                     if (decResult.account === publicKey) {
                         switch (decResult.operation) {
                             case 'create_account':
-                                accountInfo.name = decResult.params.address
+                                // accountInfo.name = decResult.params.address
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
                             case 'payment':

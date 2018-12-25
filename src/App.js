@@ -31,7 +31,7 @@ class App extends Component {
             <PrivateRoute exact path="/" component={HomePage} />
             <PrivateRoute path="/user" component={AccountPage} />
             <PrivateRoute path="/exchange" component={ExchangePage} />
-            <PrivateRoute path="/createacc" component={CreateAccountPage} />
+            <PrivateRoute path="/createaccount" component={CreateAccountPage} />
             <Route component={ErrorPage} />
           </Switch>
         </div>
