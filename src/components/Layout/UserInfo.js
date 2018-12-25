@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 
 import axios from 'axios'
-import { decode } from '../../lib/tx'
+
 import { connect } from 'react-redux'
 import { fetchUserData } from '../../actions/userActions'
 
+const { decode } = require('../../lib/tx');
 
 
 class UserInfo extends Component {
@@ -17,7 +18,7 @@ class UserInfo extends Component {
             name: null
         }
         let publicKey = localStorage.getItem('publicKey')
-        accountInfo.account = publicKey
+        accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
         accountInfo.name = publicKey
         axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {

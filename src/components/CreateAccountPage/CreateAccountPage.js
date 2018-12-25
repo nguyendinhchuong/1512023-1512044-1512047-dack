@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import UserInfo from '../Layout/UserInfo'
 import { connect } from 'react-redux'
-import { encode, sign } from '../../lib/tx'
 import Axios from 'axios'
+
+const { encode, sign } = require('../../lib/tx');
 
 class CreateAccountPage extends Component {
   state = {

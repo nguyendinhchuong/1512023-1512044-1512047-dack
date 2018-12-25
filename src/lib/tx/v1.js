@@ -150,7 +150,7 @@ const InteractParams = vstruct([
   };
 }
 
-module.exports = {
+export {
   encode,
-  decode,
+  decode
 };

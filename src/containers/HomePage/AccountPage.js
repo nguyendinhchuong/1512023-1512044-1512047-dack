@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from "react-router-dom";
 
 import UserInfo from '../../components/Layout/UserInfo';
-import Trends from '../../components/Layout/Trends';
+//import Trends from '../../components/Layout/Trends';
 import FollowBox from '../../components/Layout/FollowBox';
 import EditUser from '../../components/AccountPage/EditUser';
 import Followers from '../../components/AccountPage/Followers';

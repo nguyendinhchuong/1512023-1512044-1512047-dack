@@ -1,6 +1,7 @@
 
-publicKey = "GCG34BG4ZPYARYHMYHVPJI2YW3AAJBGK7ZAZN3NSSL3AKADOZTNUQHX3";
-secretKey = 'SCW3IM6XRZGUGQPL3JDKPAJBQSCCB7TWEEFVCMUQXSVWP43SEWZDBR2Q';
+let publicKey = 'GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW'
+
+secretKey = 'SBD2KHEC3SEFU5BP3BQA57BT2EBAMZ5FRAJO7RF5QMSJ277OFAXAT2AC';
 const vstruct = require('varstruct');
 const base32 = require('base32.js');
 const { Keypair } = require('stellar-base');
@@ -16,7 +17,7 @@ const Followings = vstruct([
   let tx = {
     account: '  ',
     version: 1,
-    sequence: 2,
+    sequence: 13,
     memo: Buffer.alloc(0),
     operation: 'update_account',
     params: {
@@ -24,7 +25,7 @@ const Followings = vstruct([
         value:Followings.encode({
           addresses: [
             base32.decode('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW')
-           
+        
           ]
         })
     }
