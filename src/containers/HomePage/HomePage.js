@@ -4,11 +4,6 @@ import FollowBox from '../../components/Layout/FollowBox';
 import PostBox from '../../components/Post/PostBox';
 import PostList from '../../components/Post/PostList';
 
-import axios from 'axios'
-import { decode } from '../../lib/tx'
-import { connect } from 'react-redux'
-import { fetchUserData } from '../../actions/userActions'
-
 class HomePage extends Component {
     componentDidMount = () => {
         let accountInfo = {
@@ -92,17 +87,5 @@ class HomePage extends Component {
         )
     }
 }
-const mapStateToProps = (state) => {
-    return {
 
-    }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        fetchUserData: (data) => {
-            dispatch(fetchUserData(data))
-        }
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default HomePage

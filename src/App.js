@@ -15,7 +15,7 @@ import AuthenticationService from './services/auth.service';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route {...rest} render={(props) => (
-      new AuthenticationService().isAuthenticated ? <Fragment> <Navbar /> <Component {...props} /> </Fragment> : <Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+      new AuthenticationService().isAuthenticated ? <Fragment> <Navbar /> <Component {...props} /> </Fragment> : <Redirect to={{ pathname: '/signin', state: { from: props.location } }} />
     )} />
   );
 };
@@ -27,11 +27,11 @@ class App extends Component {
       <BrowserRouter>
         <div className="body">
           <Switch>
-            <Route exact path="/signin" component={SignInPage} />
+            <Route path="/signin" component={SignInPage} />
             <PrivateRoute exact path="/" component={HomePage} />
-            <PrivateRoute exact path="/user" component={AccountPage} />
-            <PrivateRoute exact path="/exchange" component={ExchangePage} />
-            <PrivateRoute exact path="/createacc" component={CreateAccountPage} />
+            <PrivateRoute path="/user" component={AccountPage} />
+            <PrivateRoute path="/exchange" component={ExchangePage} />
+            <PrivateRoute path="/createaccount" component={CreateAccountPage} />
             <Route component={ErrorPage} />
           </Switch>
         </div>
