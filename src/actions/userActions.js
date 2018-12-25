@@ -19,7 +19,8 @@ export function fetchUserData(data) {
             account: data.account,
             sequence: data.sequence,
             amount: data.amount,
-            name: data.name
+            name: data.name,
+            exchange: [...data.exchange]
         }
     }
 }

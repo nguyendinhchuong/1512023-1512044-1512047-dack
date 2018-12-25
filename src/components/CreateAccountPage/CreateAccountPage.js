@@ -17,7 +17,7 @@ class CreateAccountPage extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.state) {
+    if (this.state.publicKey && this.state.amount) {
       let crawTx = {
         "version": 1,
         "account": this.props.user.account,

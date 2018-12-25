@@ -14,7 +14,8 @@ class UserInfo extends Component {
             account: null,
             sequence: 0,
             amount: 0,
-            name: null
+            name: null,
+            exchange: []
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey
@@ -34,6 +35,12 @@ class UserInfo extends Component {
                             case 'payment':
                                 accountInfo.amount = accountInfo.amount - decResult.params.amount
                                 accountInfo.sequence = accountInfo.sequence + 1
+                                let exchange = {
+                                    'from': publicKey,
+                                    'to': decResult.params.address,
+                                    'amount': decResult.params.amount
+                                }
+                                accountInfo.exchange.push(exchange)
                                 break;
                             case 'update_account':
                                 if (decResult.params.key === 'name') {
@@ -52,6 +59,12 @@ class UserInfo extends Component {
                                 break;
                             case 'payment':
                                 accountInfo.amount = accountInfo.amount + decResult.params.amount
+                                let exchange = {
+                                    'from': decResult.account,
+                                    'to': decResult.params.address,
+                                    'amount': decResult.params.amount
+                                }
+                                accountInfo.exchange.push(exchange)
                                 break;
 
                             default:
@@ -76,6 +89,7 @@ class UserInfo extends Component {
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
+                            <p><strong>Sequence: </strong> {this.props.user.sequence}</p>
                         </div>
                         <div className="row">
                             <div className="col-xs-3 tweets-tag">
