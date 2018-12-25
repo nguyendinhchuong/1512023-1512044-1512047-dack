@@ -19,7 +19,7 @@ class HomePage extends Component {
         }
         let publicKey = 'GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW'
         accountInfo.account = publicKey
-        axios.get('https://komodo.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
+        axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
                 res.data.result.txs.map((block, index) => {
                     // decode tx ra base64 moi bo vo ham decode

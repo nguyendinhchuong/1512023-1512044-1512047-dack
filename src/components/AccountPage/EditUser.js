@@ -24,7 +24,6 @@ class EditUser extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <div className="panel panel-default panel-custom user-info">
@@ -40,13 +39,13 @@ class EditUser extends Component {
                             <input type="file" />
                             <div className="media-body">
                                 <form onSubmit={this.handleSubmit}>
-                                    <div class="form-group mt-10">
+                                    <div className="form-group mt-10">
                                         <label>First Name</label>
-                                        <input type="text" name="FirstName" class="form-control width-300" onChange={this.handleChange} />
+                                        <input type="text" name="FirstName" className="form-control width-300" onChange={this.handleChange} />
                                     </div>
-                                    <div class="form-group mt-10">
+                                    <div className="form-group mt-10">
                                         <label>Last Name</label>
-                                        <input type="text" name="LastName" class="form-control width-300" onChange={this.handleChange} />
+                                        <input type="text" name="LastName" className="form-control width-300" onChange={this.handleChange} />
                                     </div>
                                     <button type="submit" className="btn btn-info">Save changes</button>
                                 </form>
