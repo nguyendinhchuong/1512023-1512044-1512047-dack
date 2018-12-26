@@ -19,6 +19,9 @@ const Navbar = props => {
                                 <Link to="/"><span className="glyphicon glyphicon-home" /> Home</Link>
                             </li>
                             <li>
+                                <Link to="/history"><span className="glyphicon glyphicon-time" /> History</Link>
+                            </li>
+                            <li>
                                 <Link to="/exchange"><span className="glyphicon glyphicon-transfer" /> Exchane</Link>
                             </li>
                             <li>

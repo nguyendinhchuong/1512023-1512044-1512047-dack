@@ -15,7 +15,9 @@ class UserInfo extends Component {
             sequence: 0,
             amount: 0,
             name: null,
-            exchange: []
+            exchange: [],
+            photoUser: 'http://placehold.it/500x500',
+            transactions: []
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey
@@ -24,8 +26,18 @@ class UserInfo extends Component {
             .then(res => {
                 res.data.result.txs.map((block, index) => {
                     // decode tx ra base64 moi bo vo ham decode
+                    let transaction = {
+                        height: null,
+                        hash: null,
+                        operation: null,
+                        time: null
+                    }
+                    transaction.height = block.height
+                    transaction.hash = block.hash
                     let txDec = Buffer.from(block.tx, 'base64')
                     let decResult = decode(txDec)
+                    transaction.operation = decResult.operation
+                    accountInfo.transactions.push(transaction)
                     if (decResult.account === publicKey) {
                         switch (decResult.operation) {
                             case 'create_account':
@@ -45,6 +57,8 @@ class UserInfo extends Component {
                             case 'update_account':
                                 if (decResult.params.key === 'name') {
                                     accountInfo.name = decResult.params.value.toString('utf-8')
+                                } else if (decResult.params.key === 'picture') {
+                                    accountInfo.photoUser = "data:image/jpg;base64," + decResult.params.value.toString('base64')
                                 }
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
@@ -83,9 +97,9 @@ class UserInfo extends Component {
             <div>
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
+                        <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
-                            <h4><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
+                            <h4 className="userName"><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>

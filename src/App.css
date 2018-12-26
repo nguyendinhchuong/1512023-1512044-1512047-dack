@@ -351,7 +351,18 @@ body {
 .exchange-table table tr td{
   word-wrap:break-word;
 }
+.history-table table {
+  border-collapse:collapse; 
+  table-layout:fixed;
+}
+.history-table table tr td{
+  word-wrap:break-word;
+}
 
 button.right-side {
   float: right;
+}
+
+h4.userName {
+  word-wrap:break-word;
 }

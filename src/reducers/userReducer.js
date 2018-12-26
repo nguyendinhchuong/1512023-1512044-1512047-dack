@@ -4,7 +4,9 @@ export default function reducer(
         sequence: 0,
         amount: 0,
         name: null,
-        exchange: []
+        exchange: [],
+        photoUser: null,
+        transactions: []
     }, action) {
     switch (action.type) {
         case "FETCH_USER_FULFILLED": {
@@ -14,7 +16,9 @@ export default function reducer(
                 sequence: action.payload.sequence,
                 amount: action.payload.amount,
                 name: action.payload.name,
-                exchange: [...action.payload.exchange]
+                exchange: [...action.payload.exchange],
+                transactions: [...action.payload.transactions],
+                photoUser: action.payload.photoUser
             }
         }
         case "UPDATE_PROFILE_INFO_FULFILLED": {
@@ -28,11 +32,11 @@ export default function reducer(
                 address: action.payload.address
             }
         }
-        case "POST_TWEET":{
-            return{
+        case "POST_TWEET": {
+            return {
                 ...state,
-                
-                
+
+
             }
         }
         default: {

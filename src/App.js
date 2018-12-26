@@ -11,6 +11,7 @@ import CreateAccountPage from './components/CreateAccountPage/CreateAccountPage'
 import SignInPage from './components/SignInPage/SignInPage';
 
 import AuthenticationService from './services/auth.service';
+import HistoryPage from './components/HistoryPage/HistoryPage';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -32,6 +33,7 @@ class App extends Component {
             <PrivateRoute path="/user" component={AccountPage} />
             <PrivateRoute path="/exchange" component={ExchangePage} />
             <PrivateRoute path="/createaccount" component={CreateAccountPage} />
+            <PrivateRoute path="/history" component={HistoryPage} />
             <Route component={ErrorPage} />
           </Switch>
         </div>
