@@ -3,7 +3,6 @@ import { Route, Switch, Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { encode, sign } from '../../lib/tx'
 import vstruct from 'varstruct';
-import { Tabs, Tab } from 'react-bootstrap'
 
 import UserInfo from '../../components/Layout/UserInfo';
 import Trends from '../../components/Layout/Trends';

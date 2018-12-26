@@ -4,11 +4,11 @@ import axios from 'axios'
 import BlockchainAPI from '../../configs/BlockchainAPI'
 import { connect } from "react-redux";
 import { fetchUserData } from '../../actions/userActions'
+import { Link } from "react-router-dom"
 
 class HistoryPage extends Component {
     componentDidMount = () => {
         let newUser = { ...this.props.user }
-        console.log(newUser)
         newUser.transactions.map(block => {
             axios.get(BlockchainAPI.baseRoute + '/block?height=' + block.height)
                 .then(res => {
@@ -48,12 +48,13 @@ class HistoryPage extends Component {
                                             {
                                                 (this.props.user.transactions.length > 0) ?
                                                     this.props.user.transactions.map((transaction, index) => {
-                                                        console.log(transaction)
                                                         return (
                                                             <tr key={index}>
                                                                 <td>{transaction.height}</td>
                                                                 <td>{transaction.time}</td>
-                                                                <td>{transaction.hash}</td>
+                                                                <td>
+                                                                    <Link to={'/hash/' + transaction.hash}>{transaction.hash}</Link>
+                                                                </td>
                                                                 <td>{transaction.operation}</td>
                                                             </tr>
                                                         )
