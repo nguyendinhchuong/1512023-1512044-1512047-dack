@@ -2,11 +2,11 @@ export function fetchTweet() {
     return {
         type: "FETCH_TWEET_FULFILLED",
         payload: {
-            tweets,
-            heading,
-            like,
-            comment,
-            share
+            tweets:[],
+            heading:'',
+            like:null,
+            comment:'',
+            share:null
         }
     }
 }
@@ -20,7 +20,7 @@ export function commentTweets() {
     return {
         type: "COMMENT_TWEET",
         payload:{
-            cmt
+            cmt:''
         }       
     }
 }
@@ -28,7 +28,7 @@ export function fetchTweets() {
     return {
         type: "FETCH_TWEETS",
         payload:{
-            tweeets
+            tweets:[]
         }       
     }
 }
@@ -36,6 +36,15 @@ export function fetchTweets() {
 export function getTweetNumber(){
     return{
         type: "GET_TWEET_NUMBER",
-        payload
+        payload:{}
+    }
+}
+export function postTweet(data){
+    return{
+        type: "POST_TWEET",
+        payload:{
+            content:data.content,
+            time: data.time
+        }
     }
 }

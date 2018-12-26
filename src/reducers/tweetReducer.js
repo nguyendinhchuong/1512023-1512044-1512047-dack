@@ -5,7 +5,8 @@ export default function reducer(
         tweet: '',
         like: 0,
         comment: [],
-        share: 0
+        share: 0,
+        time:null
     }, action) {
     switch (action.type) {
         case "FETCH_TWEETS": {
@@ -36,7 +37,14 @@ export default function reducer(
                 comment: state.comment.concat(action.payload)
             }
         }
-        
+        case "POST_TWEET":{
+            let tweet = action.payload;
+            return{
+                ...state,
+                tweets: state.tweets.concat(tweet)
+            }
+        }
+
         default: {
             return state;
         }

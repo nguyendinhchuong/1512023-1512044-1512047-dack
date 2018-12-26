@@ -85,6 +85,5 @@ store.dispatch({
         }
     ]
 });
-store.dispatch({type:"LIKE_TWEET", payload:1});
-store.dispatch({type:"COMMENT_TWEET", payload:"react redux"});
+store.subscribe(()=>{console.log(store.getState())})
 export default store;
