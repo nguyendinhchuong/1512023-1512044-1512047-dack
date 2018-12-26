@@ -89,7 +89,7 @@ class UserInfo extends Component {
                                 <Link to="/user/following" >
                                     <h5>
                                         <p>FOLLOWING</p>
-                                        <p>{this.props.follow.followingNum}</p>
+                                        <p>{this.props.follow.followings.length}</p>
                                     </h5>
                                 </Link>
                             </div>
@@ -97,7 +97,7 @@ class UserInfo extends Component {
                                 <Link to="/user/followers" >
                                     <h5>
                                         <p>FOLLOWERS</p>
-                                        <p>{this.props.follow.followerNum}</p>
+                                        <p>{this.props.follow.followers.length}</p>
                                     </h5>
                                 </Link>
                             </div>

@@ -1,3 +1,8 @@
 export default {
-    baseRoute: 'https://zebra.forest.network'
+    baseRoute: 'https://zebra.forest.network',
+    users: [
+        'GBOVRS6DWD56GOIEYHFFYRLUBCV3JPQXRZ7YY4B34IHK6KWO4MQXGNZF',
+        'GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW',
+        'GBAZVE7HITKLHDLBSP6TTHS3YQ4V26NODNYZFEIEIM72OBJ7PGMCQKKR'
+    ]
 };

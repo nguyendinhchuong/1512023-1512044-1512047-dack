@@ -3,8 +3,7 @@ import vstruct from 'varstruct';
 import base32 from 'base32.js';
 
 import BlockchainAPI from '../configs/BlockchainAPI';
-import { sign, encode } from '../lib/tx';
-import { Keypair } from 'stellar-base';
+import { sign, encode, decode } from '../lib/tx/index';
 
 const secretKey = 'SCW3IM6XRZGUGQPL3JDKPAJBQSCCB7TWEEFVCMUQXSVWP43SEWZDBR2Q';
 
@@ -12,35 +11,69 @@ const Followings = vstruct([
   { name: 'addresses', type: vstruct.VarArray(vstruct.UInt16BE, vstruct.Buffer(35)) },
 ]);
 
-export default class BlockchainRequest {
+export default class Blockchain {
     static latestSequence;
     static publicKey = localStorage.getItem('publicKey');
+    static rawData;
 
     static async getLatestSequence() {
-        const { data: { result: { total_count } } } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${BlockchainRequest.publicKey}%27"`);
-        BlockchainRequest.latestSequence = total_count;
+        const { data } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${Blockchain.publicKey}%27"`);
+        const { result } = data;
+        const { total_count } = result;
+
+        Blockchain.rawData = result;
+        Blockchain.latestSequence = total_count;
     }
 
     static async makeFollowing(otherPublicKey) {
-        console.log('>>>', otherPublicKey);
         let tx = {
-            account: BlockchainRequest.publicKey,
+            account: Blockchain.publicKey,
             version: 1,
-            sequence: ++BlockchainRequest.latestSequence,
+            sequence: ++Blockchain.latestSequence,
             memo: Buffer.alloc(0),
             operation: 'update_account',
             params: {
                 key: 'followings',
                 value: Followings.encode({
                     addresses: [
-                        base32.decode('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW')
-
+                        base32.decode(otherPublicKey)
                     ]
                 })
             }
-        };//ua s ben test, account = '   ' v, k phai la publicKey a? e tuong phai la public Key chu @@
+        };
         sign(tx, secretKey);
         encode(tx).toString('hex');
         await axios.post(`${BlockchainAPI.baseRoute}/broadcast_tx_commit?tx=0x${tx}`);
+    }
+
+    static fetchFollowings() {
+        let chainLength = Blockchain.rawData.txs.length;
+
+        for (let i = chainLength - 1; i >= 0; i--) {
+            let decResult = decode(Buffer.from(Blockchain.rawData.txs[i].tx, 'base64'));
+            if (decResult.account === Blockchain.publicKey
+                && decResult.operation === 'update_account'
+                && decResult.params.key === 'followings') {
+                return Followings.decode(decResult.params.value).addresses.map(code => base32.encode(code));
+            }
+        }
+    }
+
+    static fetchFollowers() {
+        let chainLength = Blockchain.rawData.txs.length;
+        let setOfUsers = new Set();
+
+        let followers = [];
+        for (let i = chainLength - 1; i >= 0; i--) {
+            let decResult = decode(Buffer.from(Blockchain.rawData.txs[i].tx, 'base64'));
+            if (decResult.account !== Blockchain.publicKey
+                && !setOfUsers.has(decResult.account)
+                && decResult.operation === 'update_account'
+                && decResult.params.key === 'followings') {
+                setOfUsers.add(decResult.account);
+                if (Followings.decode(decResult.params.value).addresses.map(code => base32.encode(code)).indexOf(Blockchain.publicKey) !== -1) followers.push(decResult.account);
+            }
+        }
+        return followers;
     }
 }

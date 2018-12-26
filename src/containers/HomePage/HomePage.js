@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import UserInfo from '../../components/Layout/UserInfo';
 import FollowBox from '../../components/Layout/FollowBox';
 import PostBox from '../../components/Post/PostBox';
 import PostList from '../../components/Post/PostList';
 
-import BlockchainRequest from '../../services/request.service';
+import Blockchain from '../../services/request.service';
 
 class HomePage extends Component {
     componentDidMount = async () => {
-        await BlockchainRequest.getLatestSequence();
+        await Blockchain.getLatestSequence();
 
-        BlockchainRequest.makeFollowing('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW');
+        // Blockchain.makeFollowing('a');
+        this.props.setFollowingList(Blockchain.fetchFollowings());
+        this.props.setFollowerList(Blockchain.fetchFollowers());
     }
+
     render() {
         return (
             <div>
@@ -40,4 +44,9 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage
+const mapDispatchToProps = dispatch => ({
+    setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
+    setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
+});
+
+export default connect(null, mapDispatchToProps)(HomePage);
