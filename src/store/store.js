@@ -13,33 +13,6 @@ const store = createStore(rootReducer, middleware);
 // store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "http://placehold.it/500x500", name: "chuong", subname: "@chuong" } });
 // // store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "123456", name: "bao", subname: "@cong" } });
 store.dispatch({
-    type: "FETCH_TWEETS", payload: {
-        tweets: [
-            {
-                heading: "Heading of tweet 1",
-                mgs: "This is the first tweet",
-                like: 1,
-                comment: ["Comment 1", "Comment 2", "Comment 3"],
-                share: 2
-            },
-            {
-                heading: "Heading of tweet 2",
-                mgs: "This is the second tweet",
-                like: 1,
-                comment: ["Comment 1", "Comment 2", "Comment 3"],
-                share: 2
-            },
-            {
-                heading: "Heading of tweet 3",
-                mgs: "This is the third tweet",
-                like: 1,
-                comment: ["Comment 1", "Comment 2", "Comment 3"],
-                share: 2
-            }
-        ]
-    }
-});
-store.dispatch({
     type: "FETCH_FOLLOWER_NUMBER",
     payload: 3
 });

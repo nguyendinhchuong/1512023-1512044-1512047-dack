@@ -22,37 +22,37 @@ class AccountPage extends Component {
 
     handleTweet = (Tweet) => {
         this.props.postTweet(Tweet);
-        const PlainTextContent = vstruct([
-            { name: 'type', type: vstruct.UInt8 },
-            { name: 'text', type: vstruct.VarString(vstruct.UInt16BE) },
-        ]);
-        const _PlainTextContent = PlainTextContent.encode({ type: 1, text: Tweet.content })
+        // const PlainTextContent = vstruct([
+        //     { name: 'type', type: vstruct.UInt8 },
+        //     { name: 'text', type: vstruct.VarString(vstruct.UInt16BE) },
+        // ]);
+        // const _PlainTextContent = PlainTextContent.encode({ type: 1, text: Tweet.content })
                 
-        if (Tweet.content) {
-            let crawTx = {
-                "version": 1,
-                "account": this.props.user.account,
-                "sequence": this.props.user.sequence + 1,
-                "memo": Buffer.alloc(0),
-                "operation": 'post',
-                "params": {
-                    "content": _PlainTextContent,
-                    "keys": []
-                },
-            }
-            let secretKey = localStorage.getItem('secretKey');
-            sign(crawTx, secretKey);
-            let encodedTx = encode(crawTx).toString('base64');
-            Axios.post(BlockchainAPI.baseRoute,
-                {
-                    "method": "broadcast_tx_sync",
-                    "jsonrpc": "2.0",
-                    "params": [`${encodedTx}`],
-                    "id": "dontcare"
-                }).then(res=>{
-                    console.log(res);
-                })
-        }
+        // if (Tweet.content) {
+        //     let crawTx = {
+        //         "version": 1,
+        //         "account": this.props.user.account,
+        //         "sequence": this.props.user.sequence + 1,
+        //         "memo": Buffer.alloc(0),
+        //         "operation": 'post',
+        //         "params": {
+        //             "content": _PlainTextContent,
+        //             "keys": []
+        //         },
+        //     }
+        //     let secretKey = localStorage.getItem('secretKey');
+        //     sign(crawTx, secretKey);
+        //     let encodedTx = encode(crawTx).toString('base64');
+        //     Axios.post(BlockchainAPI.baseRoute,
+        //         {
+        //             "method": "broadcast_tx_sync",
+        //             "jsonrpc": "2.0",
+        //             "params": [`${encodedTx}`],
+        //             "id": "dontcare"
+        //         }).then(res=>{
+        //             console.log(res);
+        //         })
+        // }
     }
     render() {
         return (

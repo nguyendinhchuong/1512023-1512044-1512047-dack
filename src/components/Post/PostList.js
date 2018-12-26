@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import PostItem from './PostItem'
-const PostList = ({tweets}) => {
+const PostList = ({tweets, user}) => {
     return (
         <div>
             <div className="panel-body">
                 {
-                    tweets.map((tweet, index)=><PostItem tweet={tweet} key={index}/>)
+                    tweets.reverse().map((tweet, index)=><PostItem user={user} tweet={tweet} key={index}/>)
                 }                           
             </div>
         </div>
@@ -15,6 +15,7 @@ const PostList = ({tweets}) => {
 
 const mapStateToProps = (state)=>{
     return{
+        user: state.userReducer,
         tweets: state.tweetReducer.tweets
     }
 }
