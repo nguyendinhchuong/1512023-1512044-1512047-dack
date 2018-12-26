@@ -66,29 +66,13 @@ class AccountPage extends Component {
                         <div className="col-sm-6">
 
                             <div>
-                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                                <Link to="/user/:account"></Link>
-                                <Link to="/user/following"></Link>
-                                <Link to="/user/followers"></Link>
-                                    <Tab eventKey={1} title="Tweet">
-                                        <AccountPost onTweet={this.handleTweet} />
-                                        <PostList></PostList>
-                                    </Tab>
-                                    <Tab eventKey={2} title="Following">
-                                        <Following/>
-                                    </Tab>
-                                    <Tab eventKey={3} title="Follower">
-                                        <Followers/>
-                                    </Tab>
-                                </Tabs>
-
-
-                                
-                                {/* <Switch>
+                                <AccountPost onTweet={this.handleTweet} />
+                                <PostList></PostList>
+                                <Switch>
                                     <Route exact path="/user/followers" component={Followers} />
                                     <Route exact path="/user/following" component={Following} />
                                     <Route exact path="/user/info" component={EditUser} />
-                                </Switch> */}
+                                </Switch>
                             </div>
                         </div>
                         <div className="col-sm-3">
