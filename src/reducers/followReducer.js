@@ -16,7 +16,18 @@ export default function reducer(
                 followings:action.payload
             }
         }
-            
+        case "ADD_FOLLOWING": {
+            return {
+                ...state,
+                followings: state.followings.concat(action.payload)
+            }
+        }
+        case "REMOVE_FOLLOWING": {
+            return {
+                ...state,
+                followings: state.followings.filter(x => x !== action.payload)
+            }
+        }
         default: {
             return state;
         }

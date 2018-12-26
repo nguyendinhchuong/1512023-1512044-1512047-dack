@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import BlockchainAPI from '../configs/BlockchainAPI';
+import { baseRoute } from '../configs/BlockchainAPI';
 
 export default class Singleton {
     static instance;
@@ -19,7 +19,7 @@ export default class Singleton {
             throw Error("Account has already been logged in!");
         }
         const { publicKey } = formData;
-        const { data: { result: { total_count } } } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${publicKey}%27"`);
+        const { data: { result: { total_count } } } = await axios.get(`${baseRoute}/tx_search?query="account=%27${publicKey}%27"`);
 
         if (parseInt(total_count, 10) !== 0) {
             this.isAuthenticated = true;

@@ -12,7 +12,7 @@ class HomePage extends Component {
     componentDidMount = async () => {
         await Blockchain.getLatestSequence();
 
-        // Blockchain.makeFollowing('a');
+        //Blockchain.makeFollowing([]);
         this.props.setFollowingList(Blockchain.fetchFollowings());
         this.props.setFollowerList(Blockchain.fetchFollowers());
     }

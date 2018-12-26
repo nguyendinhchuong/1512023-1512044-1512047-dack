@@ -2,14 +2,16 @@ import axios from 'axios';
 import vstruct from 'varstruct';
 import base32 from 'base32.js';
 
-import BlockchainAPI from '../configs/BlockchainAPI';
+import { baseRoute } from '../configs/BlockchainAPI';
 import { sign, encode, decode } from '../lib/tx/index';
+import { AsyncSeriesHook } from 'tapable';
 
 const secretKey = 'SCW3IM6XRZGUGQPL3JDKPAJBQSCCB7TWEEFVCMUQXSVWP43SEWZDBR2Q';
 
-const Followings = vstruct([
-  { name: 'addresses', type: vstruct.VarArray(vstruct.UInt16BE, vstruct.Buffer(35)) },
-]);
+const Followings = vstruct([{
+    name: 'addresses',
+    type: vstruct.VarArray(vstruct.UInt16BE, vstruct.Buffer(35))
+}, ]);
 
 export default class Blockchain {
     static latestSequence;
@@ -17,33 +19,44 @@ export default class Blockchain {
     static rawData;
 
     static async getLatestSequence() {
-        const { data } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${Blockchain.publicKey}%27"`);
+        const { data } = await axios.get(`${baseRoute}/tx_search?query="account=%27${Blockchain.publicKey}%27"`);
         const { result } = data;
-        const { total_count } = result;
-
+    
         Blockchain.rawData = result;
-        Blockchain.latestSequence = total_count;
+        Blockchain.latestSequence = result.txs.reduce(function (acc, block) {
+            console.log(decode(Buffer.from(block.tx, 'base64')).account);
+            return decode(Buffer.from(block.tx, 'base64')).account === Blockchain.publicKey ? acc + 1 : acc + 1;
+        }, 0);
     }
 
-    static async makeFollowing(otherPublicKey) {
+    static async makeFollowing(currentFollowings) {
+        if (!Array.isArray(currentFollowings)) {
+            throw Error('Argument must be a array instance');
+        }
+
         let tx = {
             account: Blockchain.publicKey,
             version: 1,
             sequence: ++Blockchain.latestSequence,
+            //sequence: 29,
             memo: Buffer.alloc(0),
             operation: 'update_account',
             params: {
                 key: 'followings',
                 value: Followings.encode({
-                    addresses: [
-                        base32.decode(otherPublicKey)
-                    ]
+                    //addresses: currentFollowings.map(x => Buffer.from(base32.decode(x)))
+                     addresses: [
+                         Buffer.from(base32.decode('GBOVRS6DWD56GOIEYHFFYRLUBCV3JPQXRZ7YY4B34IHK6KWO4MQXGNZF'))
+
+                     ]
                 })
             }
         };
+        console.log('>>', tx.sequence);
         sign(tx, secretKey);
-        encode(tx).toString('hex');
-        await axios.post(`${BlockchainAPI.baseRoute}/broadcast_tx_commit?tx=0x${tx}`);
+        tx = encode(tx).toString('hex');
+        console.log(tx);
+        await axios.post(`${baseRoute}/broadcast_tx_commit?tx=0x${tx}`);
     }
 
     static fetchFollowings() {
