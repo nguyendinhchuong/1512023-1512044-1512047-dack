@@ -21,7 +21,7 @@ class PostItem extends Component {
                 </a>
                 <div className="media-body">
                     <h4 className="media-heading">{this.props.tweet.heading}</h4>
-                    <p>{this.props.tweet.mgs}</p>
+                    <p>{this.props.tweet.msg}</p>
                     <ul className="nav nav-pills nav-pills-custom">
                         <li><span onClick={_ => this.setState(prevState => ({ isLoved: !prevState.isLoved }))}><span className="glyphicon glyphicon-heart" style={{ ...heartIconStyle, ...(this.state.isLoved ? isLovedStyle : {}) }} /></span></li>
                     </ul>

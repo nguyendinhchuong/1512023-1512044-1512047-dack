@@ -24,12 +24,3 @@ export function fetchUserData(data) {
         }
     }
 }
-export function postTweet(data){
-    return{
-        type: "POST_TWEET",
-        payload:{
-            content:data.content,
-            time: data.time
-        }
-    }
-}
