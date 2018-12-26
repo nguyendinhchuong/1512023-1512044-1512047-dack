@@ -1,23 +1,9 @@
 export default function reducer(
     state = {
-        followerNum: 0,
-        followingNum: 0,
         followers:[],
         followings:[]
     }, action) {
     switch (action.type) {
-        case "FETCH_FOLLOWER_NUMBER": {
-            return {
-                ...state,
-                followerNum: action.payload
-            }
-        }
-        case "FETCH_FOLLOWING_NUMBER": {
-            return {
-                ...state,
-                followingNum: action.payload
-            }
-        }
         case "FETCH_FOLLOWER_LIST":{
             return{
                 ...state,
@@ -30,7 +16,18 @@ export default function reducer(
                 followings:action.payload
             }
         }
-            
+        case "ADD_FOLLOWING": {
+            return {
+                ...state,
+                followings: state.followings.concat(action.payload)
+            }
+        }
+        case "REMOVE_FOLLOWING": {
+            return {
+                ...state,
+                followings: state.followings.filter(x => x !== action.payload)
+            }
+        }
         default: {
             return state;
         }

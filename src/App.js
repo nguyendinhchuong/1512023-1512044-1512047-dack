@@ -12,6 +12,7 @@ import SignInPage from './components/SignInPage/SignInPage';
 
 import AuthenticationService from './services/auth.service';
 import HistoryPage from './components/HistoryPage/HistoryPage';
+import HistoryDetailPage from './components/HistoryPage/HistoryDetailPage';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -22,7 +23,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 class App extends Component {
-
   render() {
     return (
       <BrowserRouter>
@@ -34,6 +34,7 @@ class App extends Component {
             <PrivateRoute path="/exchange" component={ExchangePage} />
             <PrivateRoute path="/createaccount" component={CreateAccountPage} />
             <PrivateRoute path="/history" component={HistoryPage} />
+            <PrivateRoute path="/hash/:hashid" component={HistoryDetailPage} />
             <Route component={ErrorPage} />
           </Switch>
         </div>
