@@ -9,22 +9,29 @@ class AccountPost extends Component {
         super(props);
         this.state = {
             content: '',
-            time: ''
         }
     }
     
 
     onHandleChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             content: e.target.value
         })
     }
     onHandleSubmit = (e) => {      
         e.preventDefault();
-        let time = Date.now();
-        this.setState({ time: time }, () => { this.props.onTweet(this.state) });
-        this.refs.postbox.value=""
+        
+        if(this.state.content){
+            let time = new Date();            
+            let tweet = {
+                content:this.state.content
+            }
+            tweet.time = time.getDate().toString() + '/'+ time.getMonth().toString();
+            this.props.onTweet(tweet);
+            this.setState({content:''})
+            this.refs.postbox.value=""
+        }
+        return
     }
     render() {
         return (

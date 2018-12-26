@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { encode, sign } from '../../lib/tx'
-import vstruct  from 'varstruct';
+import vstruct from 'varstruct';
+import { Tabs, Tab } from 'react-bootstrap'
 
 import UserInfo from '../../components/Layout/UserInfo';
 //import Trends from '../../components/Layout/Trends';
@@ -22,37 +23,37 @@ class AccountPage extends Component {
 
     handleTweet = (Tweet) => {
         this.props.postTweet(Tweet);
-        const PlainTextContent = vstruct([
-            { name: 'type', type: vstruct.UInt8 },
-            { name: 'text', type: vstruct.VarString(vstruct.UInt16BE) },
-        ]);
-        const _PlainTextContent = PlainTextContent.encode({ type: 1, text: Tweet.content })
-                
-        if (Tweet.content) {
-            let crawTx = {
-                "version": 1,
-                "account": this.props.user.account,
-                "sequence": this.props.user.sequence + 1,
-                "memo": Buffer.alloc(0),
-                "operation": 'post',
-                "params": {
-                    "content": _PlainTextContent,
-                    "keys": []
-                },
-            }
-            let secretKey = localStorage.getItem('secretKey');
-            sign(crawTx, secretKey);
-            let encodedTx = encode(crawTx).toString('base64');
-            Axios.post(BlockchainAPI.baseRoute,
-                {
-                    "method": "broadcast_tx_sync",
-                    "jsonrpc": "2.0",
-                    "params": [`${encodedTx}`],
-                    "id": "dontcare"
-                }).then(res=>{
-                    console.log(res);
-                })
-        }
+        // const PlainTextContent = vstruct([
+        //     { name: 'type', type: vstruct.UInt8 },
+        //     { name: 'text', type: vstruct.VarString(vstruct.UInt16BE) },
+        // ]);
+        // const _PlainTextContent = PlainTextContent.encode({ type: 1, text: Tweet.content })
+
+        // if (Tweet.content) {
+        //     let crawTx = {
+        //         "version": 1,
+        //         "account": this.props.user.account,
+        //         "sequence": this.props.user.sequence + 1,
+        //         "memo": Buffer.alloc(0),
+        //         "operation": 'post',
+        //         "params": {
+        //             "content": _PlainTextContent,
+        //             "keys": []
+        //         },
+        //     }
+        //     let secretKey = localStorage.getItem('secretKey');
+        //     sign(crawTx, secretKey);
+        //     let encodedTx = encode(crawTx).toString('base64');
+        //     Axios.post(BlockchainAPI.baseRoute,
+        //         {
+        //             "method": "broadcast_tx_sync",
+        //             "jsonrpc": "2.0",
+        //             "params": [`${encodedTx}`],
+        //             "id": "dontcare"
+        //         }).then(res=>{
+        //             console.log(res);
+        //         })
+        // }
     }
     render() {
         return (
@@ -65,13 +66,29 @@ class AccountPage extends Component {
                         <div className="col-sm-6">
 
                             <div>
-                                <AccountPost onTweet={this.handleTweet} />
-                                <Switch>
+                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                                <Link to="/user/:account"></Link>
+                                <Link to="/user/following"></Link>
+                                <Link to="/user/followers"></Link>
+                                    <Tab eventKey={1} title="Tweet">
+                                        <AccountPost onTweet={this.handleTweet} />
+                                        <PostList></PostList>
+                                    </Tab>
+                                    <Tab eventKey={2} title="Following">
+                                        <Following/>
+                                    </Tab>
+                                    <Tab eventKey={3} title="Follower">
+                                        <Followers/>
+                                    </Tab>
+                                </Tabs>
+
+
+                                
+                                {/* <Switch>
                                     <Route exact path="/user/followers" component={Followers} />
                                     <Route exact path="/user/following" component={Following} />
                                     <Route exact path="/user/info" component={EditUser} />
-                                </Switch>
-                                <PostList></PostList>
+                                </Switch> */}
                             </div>
                         </div>
                         <div className="col-sm-3">
