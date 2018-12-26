@@ -3,7 +3,7 @@ import UserInfo from '../Layout/UserInfo';
 import { connect } from 'react-redux'
 import { encode, sign } from '../../lib/tx'
 import Axios from 'axios'
-import '../../'
+import BlockchainAPI from '../../configs/BlockchainAPI'
 
 class ExchangePage extends Component {
   state = {
@@ -34,7 +34,7 @@ class ExchangePage extends Component {
       let secretKey = localStorage.getItem('secretKey')
       sign(crawTx, secretKey)
       let encodedTx = encode(crawTx).toString('base64')
-      Axios.post('https://zebra.forest.network:443',
+      Axios.post(BlockchainAPI.baseRoute,
         {
           "method": "broadcast_tx_sync",
           "jsonrpc": "2.0",

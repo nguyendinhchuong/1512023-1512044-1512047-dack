@@ -5,7 +5,7 @@ import axios from 'axios'
 import { decode } from '../../lib/tx'
 import { connect } from 'react-redux'
 import { fetchUserData } from '../../actions/userActions'
-
+import BlockchainAPI from '../../configs/BlockchainAPI'
 
 
 class UserInfo extends Component {
@@ -20,7 +20,7 @@ class UserInfo extends Component {
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey
         accountInfo.name = publicKey
-        axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
+        axios.get(BlockchainAPI.baseRoute + '/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
                 res.data.result.txs.map((block, index) => {
                     // decode tx ra base64 moi bo vo ham decode
@@ -85,7 +85,7 @@ class UserInfo extends Component {
                     <div className="panel-body">
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
                         <div className="user-info">
-                        <h4><Link to={"/user/"+ this.props.user.name}>{this.props.user.name}</Link></h4>
+                            <h4><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>

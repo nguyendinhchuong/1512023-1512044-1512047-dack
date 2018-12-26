@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { encode, sign } from '../../lib/tx'
+import Axios from 'axios'
+import BlockchainAPI from "../../configs/BlockchainAPI";
 
 class EditUser extends Component {
     constructor(props) {
@@ -8,6 +11,8 @@ class EditUser extends Component {
             profilePicture: '',
             FirstName: '' || props.first_name,
             LastName: '' || props.last_name,
+            isSubmit: false,
+            errMess: null
         }
     }
     handleChange = (e) => {
@@ -19,8 +24,38 @@ class EditUser extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-
-        this.props.updateUserInfo({ first_name: this.state.FirstName, last_name: this.state.LastName});
+        let name = this.state.LastName + ' ' + this.state.FirstName
+        if (this.state.FirstName && this.state.LastName) {
+            let crawTx = {
+                "version": 1,
+                "account": this.props.user.account,
+                "sequence": this.props.user.sequence + 1,
+                "memo": Buffer.alloc(0),
+                "operation": "update_account",
+                "params": {
+                    "key": "name",
+                    "value": new Buffer(name, "utf-8")
+                },
+            }
+            let secretKey = localStorage.getItem('secretKey')
+            sign(crawTx, secretKey)
+            let encodedTx = encode(crawTx).toString('base64')
+            console.log(crawTx)
+            console.log(encodedTx)
+            Axios.post(BlockchainAPI.baseRoute,
+                {
+                    "method": "broadcast_tx_sync",
+                    "jsonrpc": "2.0",
+                    "params": [`${encodedTx}`],
+                    "id": "dontcare"
+                }).then(res => {
+                    console.log(res)
+                    // this.setState({
+                    //     errMess: res.data.result.log,
+                    //     isSubmit: true
+                    // })
+                })
+        }
     }
 
     render() {
@@ -34,9 +69,9 @@ class EditUser extends Component {
                     </div>
                     <div className="panel-body">
                         <div className="media">
-                            <label >Profile Picture</label>
+                            {/* <label >Profile Picture</label>
                             <img className="img-responsive" alt="demo" src="http://placehold.it/300x200" />
-                            <input type="file" />
+                            <input type="file" /> */}
                             <div className="media-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group mt-10">
