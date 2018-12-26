@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 
 import UserInfo from '../../components/Layout/UserInfo';
 import FollowBox from '../../components/Layout/FollowBox';
 import PostBox from '../../components/Post/PostBox';
 import PostList from '../../components/Post/PostList';
 
-import BlockchainRequest from '../../services/request.service';
+import Blockchain from '../../services/request.service';
 
 class HomePage extends Component {
-    componentDidMount = async () => {
-        await BlockchainRequest.getLatestSequence();
 
-        BlockchainRequest.makeFollowing('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW');
-    }
     render() {
         return (
             <div>
@@ -40,4 +37,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage
+export default HomePage;
