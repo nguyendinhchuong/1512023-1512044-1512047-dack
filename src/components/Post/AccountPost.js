@@ -14,7 +14,6 @@ class AccountPost extends Component {
     
 
     onHandleChange = (e) => {
-        console.log(e.target.value)
         this.setState({
             content: e.target.value
         })

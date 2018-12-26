@@ -25,4 +25,14 @@ export function fetchUserData(data) {
             photoUser: data.photoUser
         }
     }
+
+}
+export function getUserCreation(data){
+    return{
+        type:"GET_USER_CREATION",
+        payload:{
+            account:data.account,
+            address:data.address
+        }
+    }
 }

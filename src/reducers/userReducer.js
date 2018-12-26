@@ -6,7 +6,8 @@ export default function reducer(
         name: null,
         exchange: [],
         photoUser: null,
-        transactions: []
+        transactions: [],
+        address:null
     }, action) {
     switch (action.type) {
         case "FETCH_USER_FULFILLED": {
@@ -32,12 +33,13 @@ export default function reducer(
                 address: action.payload.address
             }
         }
-        case "POST_TWEET": {
-            return {
-                ...state,
 
+        case "GET_USER_CREATION":{
+            return Object.assign({}, state, {
+                account: action.payload.account,
+                address: action.payload.address
+            })
 
-            }
         }
         default: {
             return state;
