@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import FollowCard from '../FollowCard/FollowCar'
-const Following = ({follow}) => {
-    return (
+class  Following extends React.Component {
+    render() {
+            return (
         <div>
             <div className="panel panel-default panel-custom user-info">
                 <div className="panel-heading">
@@ -12,10 +13,16 @@ const Following = ({follow}) => {
                 </div>
                 <div className="panel-body">
                     <div className="media">
-                        <div class="row">
-                            <div class="col-xs-12 follow">
+                        <div className="row">
+                            <div className="col-xs-12 follow">
                                 {
-                                    follow.map((obj) => <FollowCard followers={obj} />)
+                                            this.props.follow.map((obj) => <FollowCard
+                                                key={obj}
+                                                publicKey={obj}
+                                                addFollowing={this.props.addFollowing}
+                                                removeFollowing={this.props.removeFollowing}
+                                                isFollowed={this.props.followings.indexOf(obj) !== -1}
+                                                peopleFollowing={this.props.followings}/>)
                                 }
                             </div>
                         </div>
@@ -26,11 +33,19 @@ const Following = ({follow}) => {
             <br></br>
         </div>
     );
+    }
 };
 
 const mapStateToProps = (state) => {
     return {
-        follow: state.followReducer.followings
+        follow: state.followReducer.followings,
+        followings: state.followReducer.followings
     }
 }
-export default connect(mapStateToProps)(Following);
+
+const mapDispatchToPros = dispatch => ({
+    addFollowing: publicKey => dispatch({ type: 'ADD_FOLLOWING', payload: publicKey }),
+    removeFollowing: publicKey => dispatch({ type: 'REMOVE_FOLLOWING', payload: publicKey })
+});
+
+export default connect(mapStateToProps, mapDispatchToPros)(Following);

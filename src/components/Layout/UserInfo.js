@@ -2,14 +2,20 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 
 import axios from 'axios'
-import { decode } from '../../lib/tx'
+
 import { connect } from 'react-redux'
 import { fetchUserData } from '../../actions/userActions'
-import BlockchainAPI from '../../configs/BlockchainAPI'
+import BlockchainAPI from '../../configs/BlockchainAPI';
+import Blockchain from '../../services/request.service';
+const { decode } = require('../../lib/tx');
 
 
 class UserInfo extends Component {
-    componentDidMount = () => {
+    componentDidMount = async () => {
+        await Blockchain.getLatestSequence();
+
+        this.props.setFollowingList(Blockchain.fetchFollowings() || []);
+        this.props.setFollowerList(await Blockchain.fetchFollowers() || []);
         let accountInfo = {
             account: null,
             sequence: 0,
@@ -20,7 +26,7 @@ class UserInfo extends Component {
             transactions: []
         }
         let publicKey = localStorage.getItem('publicKey')
-        accountInfo.account = publicKey
+        accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
         accountInfo.name = publicKey
         axios.get(BlockchainAPI.baseRoute + '/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
@@ -99,7 +105,7 @@ class UserInfo extends Component {
                     <div className="panel-body">
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
-                            <h4 className="userName"><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
+                            <h4 style={{overflow: 'hidden'}}><Link to={"/user/"+ this.props.user.name}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
@@ -116,7 +122,7 @@ class UserInfo extends Component {
                                 <Link to="/user/following" >
                                     <h5>
                                         <p>FOLLOWING</p>
-                                        <p>{this.props.follow.followingNum}</p>
+                                        <p>{this.props.follow.followings.length}</p>
                                     </h5>
                                 </Link>
                             </div>
@@ -124,7 +130,7 @@ class UserInfo extends Component {
                                 <Link to="/user/followers" >
                                     <h5>
                                         <p>FOLLOWERS</p>
-                                        <p>{this.props.follow.followerNum}</p>
+                                        <p>{this.props.follow.followers.length}</p>
                                     </h5>
                                 </Link>
                             </div>
@@ -147,7 +153,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         fetchUserData: (data) => {
             dispatch(fetchUserData(data))
-        }
+        },
+    setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
+    setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

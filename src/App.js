@@ -23,7 +23,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 class App extends Component {
-
   render() {
     return (
       <BrowserRouter>

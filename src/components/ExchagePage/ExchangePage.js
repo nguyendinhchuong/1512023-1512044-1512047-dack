@@ -41,6 +41,7 @@ class ExchangePage extends Component {
           "params": [`${encodedTx}`],
           "id": "dontcare"
         }).then(res => {
+          console.log(res);
           this.setState({
             errMess: res.data.result.log,
             isSubmit: true

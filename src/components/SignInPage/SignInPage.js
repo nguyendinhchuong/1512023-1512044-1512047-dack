@@ -23,20 +23,30 @@ export default class SignInPage extends Component {
 
   handleLogin = (e) => {
     e.preventDefault();
+
+    try {
     const key = Keypair.fromSecret(this.state.secretKey);
     localStorage.setItem('secretKey', this.state.secretKey);
     let pKey = key.publicKey();
     this.setState({
       publicKey: pKey
     }, () => {
-      this.authenticationService.login({ publicKey: this.state.publicKey }, (noError) => {
+      this.authenticationService.login({
+        publicKey: this.state.publicKey
+      }, (noError) => {
         if (!noError) {
           alert('Account does not exist!');
         } else {
-          this.setState({ shouldRedirectToHomePage: true });
+          this.setState({
+            shouldRedirectToHomePage: true
+          });
         }
       });
     })
+    } catch (e) {
+      alert('Invalid secret key');
+    }
+
   }
 
   render() {
