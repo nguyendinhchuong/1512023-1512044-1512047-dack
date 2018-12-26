@@ -351,3 +351,7 @@ body {
 .exchange-table table tr td{
   word-wrap:break-word;
 }
+
+button.right-side {
+  float: right;
+}

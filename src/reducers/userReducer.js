@@ -28,6 +28,13 @@ export default function reducer(
                 address: action.payload.address
             }
         }
+        case "POST_TWEET":{
+            return{
+                ...state,
+                
+                
+            }
+        }
         default: {
             return state;
         }
