@@ -99,7 +99,7 @@ class UserInfo extends Component {
                     <div className="panel-body">
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
-                            <h4 className="userName"><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
+                            <h4 className="userName"><Link to={"/user"}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
