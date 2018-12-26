@@ -5,12 +5,8 @@ import axios from 'axios'
 
 import { connect } from 'react-redux'
 import { fetchUserData } from '../../actions/userActions'
-<<<<<<< HEAD
-
+import BlockchainAPI from '../../configs/BlockchainAPI';
 const { decode } = require('../../lib/tx');
-=======
-import BlockchainAPI from '../../configs/BlockchainAPI'
->>>>>>> 3bca4b1dcda125a396eca63f13b188dffd233cc3
 
 
 class UserInfo extends Component {
@@ -90,11 +86,7 @@ class UserInfo extends Component {
                     <div className="panel-body">
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
                         <div className="user-info">
-<<<<<<< HEAD
                             <h4><Link to={"/user/"+ this.props.user.name}>{this.props.user.name}</Link></h4>
-=======
-                            <h4><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
->>>>>>> 3bca4b1dcda125a396eca63f13b188dffd233cc3
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>

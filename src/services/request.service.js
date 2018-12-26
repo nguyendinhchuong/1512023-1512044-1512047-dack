@@ -33,7 +33,7 @@ export default class BlockchainRequest {
                 key: 'followings',
                 value: Followings.encode({
                     addresses: [
-                        base32.decode('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW')
+                        Buffer.from(base32.decode('GC26I5WNQ5HYNYDIPPAOSX5W7FSJRYRLEFQF56V7MX4TFDHHEZDK7KZW'))
 
                     ]
                 })
