@@ -5,8 +5,12 @@ import axios from 'axios'
 
 import { connect } from 'react-redux'
 import { fetchUserData } from '../../actions/userActions'
+<<<<<<< HEAD
 
 const { decode } = require('../../lib/tx');
+=======
+import BlockchainAPI from '../../configs/BlockchainAPI'
+>>>>>>> 3bca4b1dcda125a396eca63f13b188dffd233cc3
 
 
 class UserInfo extends Component {
@@ -15,12 +19,13 @@ class UserInfo extends Component {
             account: null,
             sequence: 0,
             amount: 0,
-            name: null
+            name: null,
+            exchange: []
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
         accountInfo.name = publicKey
-        axios.get('https://zebra.forest.network/tx_search?query=%22account=%27' + publicKey + '%27%22')
+        axios.get(BlockchainAPI.baseRoute + '/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
                 res.data.result.txs.map((block, index) => {
                     // decode tx ra base64 moi bo vo ham decode
@@ -35,6 +40,12 @@ class UserInfo extends Component {
                             case 'payment':
                                 accountInfo.amount = accountInfo.amount - decResult.params.amount
                                 accountInfo.sequence = accountInfo.sequence + 1
+                                let exchange = {
+                                    'from': publicKey,
+                                    'to': decResult.params.address,
+                                    'amount': decResult.params.amount
+                                }
+                                accountInfo.exchange.push(exchange)
                                 break;
                             case 'update_account':
                                 if (decResult.params.key === 'name') {
@@ -53,6 +64,12 @@ class UserInfo extends Component {
                                 break;
                             case 'payment':
                                 accountInfo.amount = accountInfo.amount + decResult.params.amount
+                                let exchange = {
+                                    'from': decResult.account,
+                                    'to': decResult.params.address,
+                                    'amount': decResult.params.amount
+                                }
+                                accountInfo.exchange.push(exchange)
                                 break;
 
                             default:
@@ -73,10 +90,15 @@ class UserInfo extends Component {
                     <div className="panel-body">
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src="http://placehold.it/500x500" /></Link>
                         <div className="user-info">
+<<<<<<< HEAD
                             <h4><Link to={"/user/"+ this.props.user.name}>{this.props.user.name}</Link></h4>
+=======
+                            <h4><Link to={"/user/" + this.props.user.name}>{this.props.user.name}</Link></h4>
+>>>>>>> 3bca4b1dcda125a396eca63f13b188dffd233cc3
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
+                            <p><strong>Sequence: </strong> {this.props.user.sequence}</p>
                         </div>
                         <div className="row">
                             <div className="col-xs-3 tweets-tag">

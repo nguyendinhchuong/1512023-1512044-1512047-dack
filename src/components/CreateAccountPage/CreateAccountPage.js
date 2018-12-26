@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UserInfo from '../Layout/UserInfo'
 import { connect } from 'react-redux'
 import Axios from 'axios'
+import BlockchainAPI from '../../configs/BlockchainAPI'
 
 const { encode, sign } = require('../../lib/tx');
 
@@ -18,7 +19,7 @@ class CreateAccountPage extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    if (this.state) {
+    if (this.state.publicKey) {
       let crawTx = {
         "version": 1,
         "account": this.props.user.account,
@@ -32,7 +33,7 @@ class CreateAccountPage extends Component {
       let secretKey = localStorage.getItem('secretKey')
       sign(crawTx, secretKey)
       let encodedTx = encode(crawTx).toString('base64')
-      Axios.post('https://zebra.forest.network:443',
+      Axios.post(BlockchainAPI.baseRoute,
         {
           "method": "broadcast_tx_sync",
           "jsonrpc": "2.0",

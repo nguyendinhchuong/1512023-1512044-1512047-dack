@@ -3,7 +3,8 @@ export default function reducer(
         account: null,
         sequence: 0,
         amount: 0,
-        name: null
+        name: null,
+        exchange: []
     }, action) {
     switch (action.type) {
         case "FETCH_USER_FULFILLED": {
@@ -12,7 +13,8 @@ export default function reducer(
                 account: action.payload.account,
                 sequence: action.payload.sequence,
                 amount: action.payload.amount,
-                name: action.payload.name
+                name: action.payload.name,
+                exchange: [...action.payload.exchange]
             }
         }
         case "UPDATE_PROFILE_INFO_FULFILLED": {
@@ -24,6 +26,13 @@ export default function reducer(
                 //Dob:action.payload.Dob,
                 phoneNumber: action.payload.phoneNumber,
                 address: action.payload.address
+            }
+        }
+        case "POST_TWEET":{
+            return{
+                ...state,
+                
+                
             }
         }
         default: {
