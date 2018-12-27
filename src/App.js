@@ -13,6 +13,10 @@ import SignInPage from './components/SignInPage/SignInPage';
 import AuthenticationService from './services/auth.service';
 import HistoryPage from './components/HistoryPage/HistoryPage';
 import SearchPage from './containers/HomePage/SearchPage/SearchPage';
+import HistoryDetailPage from './components/HistoryPage/HistoryDetailPage';
+import Followers from './components/AccountPage/Followers';
+import Following from './components/AccountPage/Following';
+import EditUser from './components/AccountPage/EditUser';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -30,11 +34,15 @@ class App extends Component {
           <Switch>
             <Route path="/signin" component={SignInPage} />
             <PrivateRoute exact path="/" component={HomePage} />
-            <PrivateRoute path="/user" component={AccountPage} />
+            <PrivateRoute path="/account" component={AccountPage} />
             <PrivateRoute path="/exchange" component={ExchangePage} />
             <PrivateRoute path="/createaccount" component={CreateAccountPage} />
             <PrivateRoute path="/history" component={HistoryPage} />
             <PrivateRoute path="/search" component={SearchPage} />
+            <PrivateRoute path="/hash/:hashid" component={HistoryDetailPage} />
+            <PrivateRoute path="/followers" component={Followers} />
+            <PrivateRoute path="/following" component={Following} />
+            <PrivateRoute path="/edit" component={EditUser} />
             <Route component={ErrorPage} />
           </Switch>
         </div>

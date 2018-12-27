@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore, compose } from 'redux'
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers/rootReducer'
@@ -7,7 +7,7 @@ import rootReducer from '../reducers/rootReducer'
 // const middleware = applyMiddleware(thunk, logger);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 
 // store.dispatch({ type: "FETCH_USER_FULFILLED", payload: { profilePhoto: "http://placehold.it/500x500", name: "chuong", subname: "@chuong" } });

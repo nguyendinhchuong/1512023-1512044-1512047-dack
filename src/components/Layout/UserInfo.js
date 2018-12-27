@@ -23,7 +23,8 @@ class UserInfo extends Component {
             name: null,
             exchange: [],
             photoUser: 'http://placehold.it/500x500',
-            transactions: []
+            transactions: [],
+            post: []
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
@@ -68,6 +69,9 @@ class UserInfo extends Component {
                                 }
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
+                            case 'post':
+                                accountInfo.sequence = accountInfo.sequence + 1
+                                break
 
                             default:
                                 break;
@@ -103,31 +107,26 @@ class UserInfo extends Component {
             <div>
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
+                        <Link to="/edit"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
-                            <h4 style={{overflow: 'hidden'}}><Link to={"/user/"+ this.props.user.name}>{this.props.user.name}</Link></h4>
+
+                            <h4 className="userName"><Link to={"/account/" + this.props.user.account}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
                             <p><strong>Sequence: </strong> {this.props.user.sequence}</p>
                         </div>
                         <div className="row">
-                            <div className="col-xs-3 tweets-tag">
-                                <h5>
-                                    <p>TWEETS</p>
-                                    <p>1,545</p>
-                                </h5>
-                            </div>
-                            <div className="col-xs-4 following-tag">
-                                <Link to="/user/following" >
+                            <div className="col-xs-6 following-tag">
+                                <Link to="/following" >
                                     <h5>
                                         <p>FOLLOWING</p>
                                         <p>{this.props.follow.followings.length}</p>
                                     </h5>
                                 </Link>
                             </div>
-                            <div className="col-xs-5 followers-tag">
-                                <Link to="/user/followers" >
+                            <div className="col-xs-6 followers-tag">
+                                <Link to="/followers" >
                                     <h5>
                                         <p>FOLLOWERS</p>
                                         <p>{this.props.follow.followers.length}</p>
@@ -145,7 +144,8 @@ class UserInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer,
-        follow: state.followReducer
+        follow: state.followReducer,
+        tweets: state.tweetReducer
     }
 }
 
@@ -154,8 +154,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchUserData: (data) => {
             dispatch(fetchUserData(data))
         },
-    setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
-    setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
+        setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
+        setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

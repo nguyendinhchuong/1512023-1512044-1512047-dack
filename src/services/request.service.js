@@ -25,7 +25,6 @@ export default class Blockchain {
     
         Blockchain.rawData = result;
         Blockchain.latestSequence = result.txs.reduce(function (acc, block) {
-            console.log(decode(Buffer.from(block.tx, 'base64')).account);
             return decode(Buffer.from(block.tx, 'base64')).account === Blockchain.publicKey ? acc + 1 : acc;
         }, 0);
     }
@@ -99,5 +98,16 @@ export default class Blockchain {
             }
         }
         return publicKey;
+    }
+    static async getProfilePicture(publicKey) {
+        const { data: { result } } = await axios.get(`${BlockchainAPI.baseRoute}/tx_search?query="account=%27${publicKey}%27"`);
+        for (let i = result.txs.length - 1; i >= 0; i--) {
+            let decResult = decode(Buffer.from(result.txs[i].tx, 'base64'));
+            if (decResult.operation === 'update_account' && decResult.params.key === 'picture') {
+                let imgPath =  "data:image/jpg;base64," + decResult.params.value.toString('base64')
+                return  imgPath
+            }
+        }
+        return 'http://placehold.it/500x500';
     }
 }

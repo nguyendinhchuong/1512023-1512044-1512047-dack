@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { encode, sign } from '../../lib/tx'
 import Axios from 'axios'
 import BlockchainAPI from "../../configs/BlockchainAPI";
+import FollowBox from '../Layout/FollowBox';
+import UserInfo from '../Layout/UserInfo';
 
 class EditUser extends Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class EditUser extends Component {
             file: null,
             name: null,
             isSubmit: false,
-            errMess: null
+            errMess: null,
+            imgResize: null
         }
     }
     handleChange = (e) => {
@@ -68,16 +71,40 @@ class EditUser extends Component {
             let { file } = this.state
             let reader = new FileReader()
             reader.onloadend = () => {
-                var data = (reader.result).split(',')[1];
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                canvas.width = 300;
+                canvas.height = 300;
+                // limit the image to 150x100 maximum size
+                var maxW = 150;
+                var maxH = 100;
+                var img = new Image();
+                img.onload = () => {
+                    var iw = img.width;
+                    var ih = img.height;
+                    var scale = Math.min((maxW / iw), (maxH / ih));
+                    var iwScaled = iw * scale;
+                    var ihScaled = ih * scale;
+                    canvas.width = iwScaled;
+                    canvas.height = ihScaled;
+                    ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
+                    this.setState({
+                        imgResize: canvas.toDataURL()
+                    }, () => {
+                        let dataDecode = (this.state.imgResize).split(',')[1]
+                        this.setState({
+                            imageBinary: dataDecode
+                        })
+                    })
+                }
+                img.src = URL.createObjectURL(file);
                 this.setState({
-                    profilePicture: reader.result,
-                    imageBinary: data
+                    profilePicture: reader.result
                 })
             }
             reader.readAsDataURL(file)
         })
     }
-
     handleSubmitImage = (e) => {
         e.preventDefault()
         let { imageBinary } = this.state
@@ -96,8 +123,7 @@ class EditUser extends Component {
             let secretKey = localStorage.getItem('secretKey')
             sign(crawTx, secretKey)
             let encodedTx = encode(crawTx).toString('base64')
-            console.log(crawTx)
-            console.log(encodedTx)
+
             Axios.post(BlockchainAPI.baseRoute,
                 {
                     "method": "broadcast_tx_sync",
@@ -105,7 +131,6 @@ class EditUser extends Component {
                     "params": [`${encodedTx}`],
                     "id": "dontcare"
                 }).then(res => {
-                    console.log(res.data)
                     this.setState({
                         errMess: res.data.result.log,
                         isSubmit: true
@@ -121,6 +146,7 @@ class EditUser extends Component {
 
     render() {
         const { isSubmit, errMess, profilePicture } = this.state
+
         let alertMess = null
         if (isSubmit) {
             if (errMess.length > 1) {
@@ -135,40 +161,53 @@ class EditUser extends Component {
         }
         return (
             <div>
-                <div className="panel panel-default panel-custom user-info">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">
-                            Change Profile Info
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <UserInfo />
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="panel panel-default panel-custom user-info">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">
+                                        Change Profile Info
                         </h3>
-                    </div>
-                    <div className="panel-body">
-                        <div className="media">
-                            {(profilePicture ? <img src={this.state.profilePicture} alt="#" /> : null)}
-                            <form onSubmit={this.handleSubmitImage}>
-                                <label >Profile Picture</label>
-                                <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} accept="image/*" />
-                                <br></br>
-                                <button type="submit" className="btn btn-info">Save changes</button>
-                            </form>
-                            <div className="media-body">
-                                <br></br>
-                                <br></br>
-                                <form onSubmit={this.handleSubmit}>
-                                    <div className="form-group mt-10">
-                                        <label>Name</label>
-                                        <input type="text" name="name" className="form-control width-300" onChange={this.handleChange} />
+                                </div>
+                                <div className="panel-body">
+                                    <div className="media">
+                                        {(profilePicture ? <img src={this.state.profilePicture} alt="#" className="profilePicture" /> : null)}
+                                        <form onSubmit={this.handleSubmitImage}>
+                                            <label >Profile Picture</label>
+                                            <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} accept="image/*" />
+                                            <br></br>
+                                            <button type="submit" className="btn btn-info">Save changes</button>
+                                        </form>
+                                        <div className="media-body">
+                                            <br></br>
+                                            <br></br>
+                                            <form onSubmit={this.handleSubmit}>
+                                                <div className="form-group mt-10">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" className="form-control width-300" onChange={this.handleChange} />
+                                                </div>
+                                                <button type="submit" className="btn btn-info">Save changes</button>
+                                            </form>
+                                            <br></br>
+                                        </div>
+                                        <br></br>
+                                        {
+                                            (alertMess ? alertMess : null)
+                                        }
                                     </div>
-                                    <button type="submit" className="btn btn-info">Save changes</button>
-                                </form>
-                                <br></br>
+                                </div>
                             </div>
-                            <br></br>
-                            {
-                                (alertMess ? alertMess : null)
-                            }
+                        </div>
+                        <div className="col-sm-3">
+                            <FollowBox />
                         </div>
                     </div>
                 </div>
+
                 <br></br>
                 <br></br>
             </div>

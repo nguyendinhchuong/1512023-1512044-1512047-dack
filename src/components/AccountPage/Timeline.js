@@ -1,24 +1,12 @@
-import {Component} from 'react'
-import Navbar from '../Layout/Navbar'
 
+import React, { Component } from 'react'
 
-
-
-
-
-class Timeline extends Component{
-    constructor(){
-        super();
-        this.state = {}
-    }
-
-    render(){
-        return(
-            <div>
-                <Navbar />
-            </div>
-        )
-    }
+export default class Timeline extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
 }
-
-export default Timeline;

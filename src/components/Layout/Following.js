@@ -10,12 +10,8 @@ import { fetchFollowingList } from '../../actions/followActions'
 
 
 class FollowingBox extends Component {
-    constructor() {
-        super();
-    }
-    
     render() {
-        console.log(this.props.followingList)
+        console.log(this.props)
         return (
             <div>
                 <div className="panel panel-default panel-custom trends">

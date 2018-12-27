@@ -20,7 +20,7 @@ class HomePage extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div className="panel panel-info">
-                                <PostBox />
+                                <h3 style={{ 'textAlign': 'center' }}>Timeline</h3>
                                 <PostList />
                             </div>
                             <br />

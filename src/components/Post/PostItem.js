@@ -15,13 +15,10 @@ class PostItem extends Component {
 
     render() {
         return (
-            <div className="media">
-                <a className="media-left" href="#fake">
-                    <img alt="demo" className="media-object img-circle" src="http://placehold.it/64x64" />
-                </a>
+            <div className="media post-item">
                 <div className="media-body">
-                    <h4 className="media-heading">{this.props.user.name} - {this.props.tweet.time}</h4>
-                    <p>{this.props.tweet.content}</p>
+                    <h4 className="media-heading">{this.props.user.name}</h4>
+                    <p>{this.props.tweet}</p>
                     <ul className="nav nav-pills nav-pills-custom">
                         <li><span onClick={_ => this.setState(prevState => ({ isLoved: !prevState.isLoved }))}><span className="glyphicon glyphicon-heart" style={{ ...heartIconStyle, ...(this.state.isLoved ? isLovedStyle : {}) }} /></span></li>
                     </ul>

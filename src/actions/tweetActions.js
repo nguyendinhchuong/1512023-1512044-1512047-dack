@@ -2,48 +2,48 @@ export function fetchTweet() {
     return {
         type: "FETCH_TWEET_FULFILLED",
         payload: {
-            tweets:[],
-            heading:'',
-            like:null,
-            comment:'',
-            share:null
+            tweets: [],
+            heading: '',
+            like: null,
+            comment: '',
+            share: null
         }
     }
 }
 export function likeTweets() {
     return {
-        type: "LIKE_TWEET"        
+        type: "LIKE_TWEET"
     }
 }
 
 export function commentTweets() {
     return {
         type: "COMMENT_TWEET",
-        payload:{
-            cmt:''
-        }       
+        payload: {
+            cmt: ''
+        }
     }
 }
-export function fetchTweets() {
+export function fetchTweets(tweets) {
     return {
         type: "FETCH_TWEETS",
-        payload:{
-            tweets:[]
-        }       
+        payload: {
+            tweets: [...tweets]
+        }
     }
 }
 
-export function getTweetNumber(){
-    return{
+export function getTweetNumber() {
+    return {
         type: "GET_TWEET_NUMBER",
-        payload:{}
+        payload: {}
     }
 }
-export function postTweet(data){
-    return{
+export function postTweet(data) {
+    return {
         type: "POST_TWEET",
-        payload:{
-            content:data.content,
+        payload: {
+            content: data.content,
             time: data.time
         }
     }

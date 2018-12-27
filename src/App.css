@@ -367,3 +367,12 @@ button.right-side {
 h4.userName {
   word-wrap:break-word;
 }
+post-item {
+  width: 100%;
+}
+.post-item h4{
+  word-wrap:break-word;
+}
+.post-item p{
+  word-wrap:break-word;
+}
