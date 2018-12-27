@@ -16,7 +16,7 @@ class Following extends React.Component {
                             <div className="panel panel-default panel-custom user-info">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">
-                                        Following
+                                       Following
                     </h3>
                                 </div>
                                 <div className="panel-body">

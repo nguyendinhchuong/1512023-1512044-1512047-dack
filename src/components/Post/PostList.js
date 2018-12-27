@@ -5,64 +5,57 @@ import { decode } from '../../lib/tx'
 
 
 import { fetchTweets } from '../../actions/tweetActions'
-import { getUserCreation } from '../../actions/userActions'
 import Axios from 'axios';
 import BlockchainAPI from '../../configs/BlockchainAPI';
 class PostList extends Component {
     constructor() {
         super();
         this.state = {
-            timeLine: []
+            timeLine: [],
+            post: 0,
+            
         }
     }
     componentDidMount = () => {
-
-        // Axios.get(BlockchainAPI.baseRoute +
-        //     "/block?height=" + this.state.maxHeight
-        // ).then(res => {
-        //     if (res.data.error === undefined) {
-        //         if (res.data.result.block.data.txs !== null) {
-        //             const raw = res.data.result.block.data.txs[0];
-        //             const buf = Buffer.from(raw, 'base64');
-        //             const post = decode(buf);
-        //             console.log(post)
-        //             if (post.operation === 'post') {
-        //                 post.params.content = Buffer.from(post.params.content, 'utf-8').toString();
-        //                 this.props.fetchTweets(post);
-        //             }
-
-        //         }
-        //     }
-        //     this.setState({ maxHeight: this.state.maxHeight + 1 })
-        // })
         let publicKey = localStorage.getItem('publicKey')
+        let tweets = []
+        let { timeLine, post } = this.state
         Axios.get(BlockchainAPI.baseRoute + '/tx_search?query=%22account=%27' + publicKey + '%27%22')
             .then(res => {
-                res.data.result.txs.map((block, index) => {
+                res.data.result.txs.map((block) => {
                     let txDec = Buffer.from(block.tx, 'base64')
                     let decResult = decode(txDec)
                     if (decResult.account === publicKey) {
                         switch (decResult.operation) {
                             case 'create_account':
                                 let createAccountMess = publicKey + ' da tao tai khoan ' + decResult.params.address
-                                console.log(createAccountMess)
+                                timeLine.push(createAccountMess)
                                 break;
                             case 'payment':
                                 let paymentMess = publicKey + ' da chuyen ' + decResult.params.amount + ' CEL cho ' + decResult.params.address
-                                console.log(paymentMess)
+                                timeLine.push(paymentMess)
                                 break;
                             case 'update_account':
                                 if (decResult.params.key === 'name') {
                                     let updateMess = decResult.account + ' da doi ten thanh ' + decResult.params.value.toString('utf-8')
-                                    console.log(updateMess)
+                                    timeLine.push(updateMess)
                                 } else if (decResult.params.key === 'picture') {
                                     let updateMess = decResult.account + ' da cap nhat anh dai dien '
-                                    console.log(updateMess)
+                                    timeLine.push(updateMess)
+                                } else if (decResult.params.key === 'followings') {
+                                    let updateMess = decResult.account + ' bat dau theo doi'
+                                    timeLine.push(updateMess)
                                 }
                                 break;
                             case 'post':
-                                let postMess = decResult.account + ' da them bai viet '
-                                console.log(postMess)
+                                let content = Buffer.from(decResult.params.content, 'utf-8').toString();
+                                tweets.push(content)
+                                this.props.fetchTweets(tweets);
+                                timeLine.push(content)
+                                post = post + 1
+                                this.setState({
+                                    post: post
+                                })
                                 break
 
                             default:
@@ -72,18 +65,20 @@ class PostList extends Component {
                         switch (decResult.operation) {
                             case 'create_account':
                                 let createAccountMess = decResult.account + ' da tao tai khoan cho ' + decResult.params.address
-                                console.log(createAccountMess)
+                                timeLine.push(createAccountMess)
                                 break;
                             case 'payment':
                                 let paymentMess = decResult.account + ' da chuyen ' + decResult.params.amount + ' CEL cho ' + decResult.params.address
-                                console.log(paymentMess)
+                                timeLine.push(paymentMess)
                                 break;
 
                             default:
                                 break;
                         }
                     }
-                    return 0
+                    this.setState({
+                        timeLine: timeLine
+                    })
                 })
             })
     }
@@ -93,7 +88,7 @@ class PostList extends Component {
             <div>
                 <div className="panel-body">
                     {
-                        this.props.tweets.reverse().map((tweet, index) => <PostItem user={this.props.user} tweet={tweet} key={index} />)
+                        this.state.timeLine.map((tweet, index) => <PostItem user={this.props.user} tweet={tweet} key={index} />)
                     }
                 </div>
             </div>
@@ -115,4 +110,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
     }
 }
-export default connect(mapStateToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

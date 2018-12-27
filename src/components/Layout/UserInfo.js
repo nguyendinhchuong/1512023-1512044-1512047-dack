@@ -24,7 +24,7 @@ class UserInfo extends Component {
             exchange: [],
             photoUser: 'http://placehold.it/500x500',
             transactions: [],
-            post:[]
+            post: []
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
@@ -120,7 +120,7 @@ class UserInfo extends Component {
                             <div className="col-xs-3 tweets-tag">
                                 <h5>
                                     <p>TWEETS</p>
-                                    <p>1,545</p>
+                                    <p>{this.props.tweets.tweets.length}</p>
                                 </h5>
                             </div>
                             <div className="col-xs-4 following-tag">
@@ -150,7 +150,8 @@ class UserInfo extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer,
-        follow: state.followReducer
+        follow: state.followReducer,
+        tweets: state.tweetReducer
     }
 }
 
