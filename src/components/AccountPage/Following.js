@@ -43,9 +43,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToPros = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     addFollowing: publicKey => dispatch({ type: 'ADD_FOLLOWING', payload: publicKey }),
     removeFollowing: publicKey => dispatch({ type: 'REMOVE_FOLLOWING', payload: publicKey })
 });
 
-export default connect(mapStateToProps, mapDispatchToPros)(Following);
+export default connect(mapStateToProps, mapDispatchToProps)(Following);
