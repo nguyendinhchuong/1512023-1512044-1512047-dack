@@ -6,6 +6,8 @@ import { postTweet } from '../../actions/tweetActions'
 import { encode, sign } from '../../lib/tx'
 import vstruct from 'varstruct';
 import PostList from '../../components/Post/PostList'
+import FollowBox from '../Layout/FollowBox';
+import UserInfo from '../Layout/UserInfo';
 
 
 
@@ -75,21 +77,28 @@ class AccountPost extends Component {
     }
     render() {
         return (
-            <div className="">
-                <textarea name="accountPost"
-                    className="form-control"
-                    onChange={this.onHandleChange}
-                    placeholder="Write your post here"
-                    row={5}
-                    ref='postbox' />
-                <button className="btn btn-primary tweet right-side" onClick={this.onHandleSubmit}>Post</button>
-                <PostList></PostList>
+            <div>
+                <div className="panel panel-info">
+                    <textarea name="accountPost"
+                        className="form-control"
+                        onChange={this.onHandleChange}
+                        placeholder="Write your post here"
+                        row={5}
+                        ref='postbox' />
+                    <button className="btn btn-primary tweet right-side" onClick={this.onHandleSubmit}>Post</button>
+                    <h3 style={{ 'textAlign': 'center' }}>Personal Timeline</h3>
+                    <PostList />
+                </div>
+                <br />
+                <br />
+                <br />
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return {
         user: state.userReducer
     }

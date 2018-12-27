@@ -31,10 +31,7 @@ class AccountPage extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div>
-                                <Switch>
-                                    <Route exact path="/account/:key" component={AccountPost} />
-                               
-                                </Switch>
+                               <AccountPost></AccountPost>
                             </div>
                         </div>
                         <div className="col-sm-3">

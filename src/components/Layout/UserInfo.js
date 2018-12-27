@@ -117,13 +117,7 @@ class UserInfo extends Component {
                             <p><strong>Sequence: </strong> {this.props.user.sequence}</p>
                         </div>
                         <div className="row">
-                            <div className="col-xs-3 tweets-tag">
-                                <h5>
-                                    <p>TWEETS</p>
-                                    <p>{this.props.tweets.tweets.length}</p>
-                                </h5>
-                            </div>
-                            <div className="col-xs-4 following-tag">
+                            <div className="col-xs-6 following-tag">
                                 <Link to="/following" >
                                     <h5>
                                         <p>FOLLOWING</p>
@@ -131,7 +125,7 @@ class UserInfo extends Component {
                                     </h5>
                                 </Link>
                             </div>
-                            <div className="col-xs-5 followers-tag">
+                            <div className="col-xs-6 followers-tag">
                                 <Link to="/followers" >
                                     <h5>
                                         <p>FOLLOWERS</p>

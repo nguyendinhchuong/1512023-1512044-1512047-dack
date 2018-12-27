@@ -25,7 +25,6 @@ export default class Blockchain {
     
         Blockchain.rawData = result;
         Blockchain.latestSequence = result.txs.reduce(function (acc, block) {
-            console.log(decode(Buffer.from(block.tx, 'base64')).account);
             return decode(Buffer.from(block.tx, 'base64')).account === Blockchain.publicKey ? acc + 1 : acc;
         }, 0);
     }
