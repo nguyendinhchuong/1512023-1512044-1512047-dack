@@ -28,9 +28,6 @@ class PostList extends Component {
                     let txDec = Buffer.from(block.tx, 'base64')
                     let decResult = decode(txDec)
                     if (index < maxPages && index > minPages) {
-                        console.log('min - ' + minPages)
-                        console.log('max - ' + maxPages)
-                        console.log('index - ' + index)
                         if (decResult.account === publicKey) {
                             switch (decResult.operation) {
                                 case 'create_account':
@@ -102,7 +99,6 @@ class PostList extends Component {
     render() {
         const { timeLine, hasMoreItems } = this.state
         var items = []
-        
         timeLine.map((tweet, index) => {
             return (
                 items.push(<PostItem user={this.props.user} tweet={tweet} key={index} />)

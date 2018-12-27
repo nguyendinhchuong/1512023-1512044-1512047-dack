@@ -18,7 +18,7 @@ class FollowCard extends React.Component {
             );
     }
 
-    state = {   
+    state = {
         isFollowed: this.props.isFollowed
     }
 
@@ -38,17 +38,17 @@ class FollowCard extends React.Component {
         });
     }
 
-  render() {
-    return (
-        <div className="panel panel-default follow-card">
-            <img className="img-responsive" alt="demo" src={null} />
-            <div className="panel-body text-center">
-                <p style={{overflow: 'hidden'}}>{this.props.publicKey}</p>
-                <span className="btn btn-default btn-xs" onClick={this.handleFollow}>{this.renderFollow()}</span>
+    render() {
+        return (
+            <div className="panel panel-default follow-card">
+                <img className="img-responsive" alt="demo" src={this.props.person.profilePicture} />
+                <div className="panel-body text-center">
+                    <p style={{ overflow: 'hidden' }}>{this.props.person.name}</p>
+                    <span className="btn btn-default btn-xs" onClick={this.handleFollow}>{this.renderFollow()}</span>
+                </div>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default FollowCard;
