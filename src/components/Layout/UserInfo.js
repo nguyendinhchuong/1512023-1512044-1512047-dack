@@ -107,7 +107,7 @@ class UserInfo extends Component {
             <div>
                 <div className="panel panel-default">
                     <div className="panel-body">
-                        <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
+                        <Link to="/edit"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
 
                             <h4 className="userName"><Link to={"/account/" + this.props.user.account}>{this.props.user.name}</Link></h4>
@@ -124,7 +124,7 @@ class UserInfo extends Component {
                                 </h5>
                             </div>
                             <div className="col-xs-4 following-tag">
-                                <Link to="/user/following" >
+                                <Link to="/following" >
                                     <h5>
                                         <p>FOLLOWING</p>
                                         <p>{this.props.follow.followings.length}</p>
@@ -132,7 +132,7 @@ class UserInfo extends Component {
                                 </Link>
                             </div>
                             <div className="col-xs-5 followers-tag">
-                                <Link to="/user/followers" >
+                                <Link to="/followers" >
                                     <h5>
                                         <p>FOLLOWERS</p>
                                         <p>{this.props.follow.followers.length}</p>

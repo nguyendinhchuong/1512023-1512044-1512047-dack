@@ -33,9 +33,7 @@ class AccountPage extends Component {
                             <div>
                                 <Switch>
                                     <Route exact path="/account/:key" component={AccountPost} />
-                                    <Route exact path="/user/followers" component={Followers} />
-                                    <Route exact path="/user/following" component={Following} />
-                                    <Route exact path="/user/info" component={EditUser} />
+                               
                                 </Switch>
                             </div>
                         </div>

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { encode, sign } from '../../lib/tx'
 import Axios from 'axios'
 import BlockchainAPI from "../../configs/BlockchainAPI";
+import FollowBox from '../Layout/FollowBox';
+import UserInfo from '../Layout/UserInfo';
 
 class EditUser extends Component {
     constructor(props) {
@@ -159,40 +161,53 @@ class EditUser extends Component {
         }
         return (
             <div>
-                <div className="panel panel-default panel-custom user-info">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">
-                            Change Profile Info
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <UserInfo />
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="panel panel-default panel-custom user-info">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">
+                                        Change Profile Info
                         </h3>
-                    </div>
-                    <div className="panel-body">
-                        <div className="media">
-                            {(profilePicture ? <img src={this.state.profilePicture} alt="#" className="profilePicture" /> : null)}
-                            <form onSubmit={this.handleSubmitImage}>
-                                <label >Profile Picture</label>
-                                <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} accept="image/*" />
-                                <br></br>
-                                <button type="submit" className="btn btn-info">Save changes</button>
-                            </form>
-                            <div className="media-body">
-                                <br></br>
-                                <br></br>
-                                <form onSubmit={this.handleSubmit}>
-                                    <div className="form-group mt-10">
-                                        <label>Name</label>
-                                        <input type="text" name="name" className="form-control width-300" onChange={this.handleChange} />
+                                </div>
+                                <div className="panel-body">
+                                    <div className="media">
+                                        {(profilePicture ? <img src={this.state.profilePicture} alt="#" className="profilePicture" /> : null)}
+                                        <form onSubmit={this.handleSubmitImage}>
+                                            <label >Profile Picture</label>
+                                            <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} accept="image/*" />
+                                            <br></br>
+                                            <button type="submit" className="btn btn-info">Save changes</button>
+                                        </form>
+                                        <div className="media-body">
+                                            <br></br>
+                                            <br></br>
+                                            <form onSubmit={this.handleSubmit}>
+                                                <div className="form-group mt-10">
+                                                    <label>Name</label>
+                                                    <input type="text" name="name" className="form-control width-300" onChange={this.handleChange} />
+                                                </div>
+                                                <button type="submit" className="btn btn-info">Save changes</button>
+                                            </form>
+                                            <br></br>
+                                        </div>
+                                        <br></br>
+                                        {
+                                            (alertMess ? alertMess : null)
+                                        }
                                     </div>
-                                    <button type="submit" className="btn btn-info">Save changes</button>
-                                </form>
-                                <br></br>
+                                </div>
                             </div>
-                            <br></br>
-                            {
-                                (alertMess ? alertMess : null)
-                            }
+                        </div>
+                        <div className="col-sm-3">
+                            <FollowBox />
                         </div>
                     </div>
                 </div>
+
                 <br></br>
                 <br></br>
             </div>

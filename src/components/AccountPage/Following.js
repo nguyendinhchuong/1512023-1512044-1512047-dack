@@ -1,38 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import FollowCard from '../FollowCard/FollowCar'
-class  Following extends React.Component {
+import FollowBox from '../Layout/FollowBox';
+import UserInfo from '../Layout/UserInfo';
+class Following extends React.Component {
     render() {
-            return (
-        <div>
-            <div className="panel panel-default panel-custom user-info">
-                <div className="panel-heading">
-                    <h3 className="panel-title">
-                        Followings
-            </h3>
-                </div>
-                <div className="panel-body">
-                    <div className="media">
-                        <div className="row">
-                            <div className="col-xs-12 follow">
-                                {
-                                            this.props.follow.map((obj) => <FollowCard
-                                                key={obj}
-                                                publicKey={obj}
-                                                addFollowing={this.props.addFollowing}
-                                                removeFollowing={this.props.removeFollowing}
-                                                isFollowed={this.props.followings.indexOf(obj) !== -1}
-                                                peopleFollowing={this.props.followings}/>)
-                                }
+        return (
+            <div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <UserInfo />
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="panel panel-default panel-custom user-info">
+                                <div className="panel-heading">
+                                    <h3 className="panel-title">
+                                        Following
+                    </h3>
+                                </div>
+                                <div className="panel-body">
+                                    <div className="media">
+                                        <div className="follow">
+                                            {
+                                                this.props.follow.map((obj) => <FollowCard
+                                                    key={obj}
+                                                    publicKey={obj}
+                                                    addFollowing={this.props.addFollowing}
+                                                    removeFollowing={this.props.removeFollowing}
+                                                    isFollowed={this.props.followings.indexOf(obj) !== -1}
+                                                    peopleFollowing={this.props.followings} />)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div className="col-sm-3">
+                            <FollowBox />
                         </div>
                     </div>
                 </div>
+
+                <br></br>
+                <br></br>
             </div>
-            <br></br>
-            <br></br>
-        </div>
-    );
+
+        );
     }
 };
 

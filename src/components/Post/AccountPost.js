@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Axios from 'axios'
 import BlockchainAPI from '../../configs/BlockchainAPI'
 import { postTweet } from '../../actions/tweetActions'
-import { encode, sign, decode } from '../../lib/tx'
+import { encode, sign } from '../../lib/tx'
 import vstruct from 'varstruct';
 import PostList from '../../components/Post/PostList'
 
