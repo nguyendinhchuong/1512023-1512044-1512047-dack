@@ -102,6 +102,7 @@ class PostList extends Component {
     render() {
         const { timeLine, hasMoreItems } = this.state
         var items = []
+        
         timeLine.map((tweet, index) => {
             return (
                 items.push(<PostItem user={this.props.user} tweet={tweet} key={index} />)
