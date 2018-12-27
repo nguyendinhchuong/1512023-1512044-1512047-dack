@@ -13,7 +13,8 @@ class EditUser extends Component {
             file: null,
             name: null,
             isSubmit: false,
-            errMess: null
+            errMess: null,
+            imgResize: null
         }
     }
     handleChange = (e) => {
@@ -68,16 +69,40 @@ class EditUser extends Component {
             let { file } = this.state
             let reader = new FileReader()
             reader.onloadend = () => {
-                var data = (reader.result).split(',')[1];
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                canvas.width = 300;
+                canvas.height = 300;
+                // limit the image to 150x100 maximum size
+                var maxW = 150;
+                var maxH = 100;
+                var img = new Image();
+                img.onload = () => {
+                    var iw = img.width;
+                    var ih = img.height;
+                    var scale = Math.min((maxW / iw), (maxH / ih));
+                    var iwScaled = iw * scale;
+                    var ihScaled = ih * scale;
+                    canvas.width = iwScaled;
+                    canvas.height = ihScaled;
+                    ctx.drawImage(img, 0, 0, iwScaled, ihScaled);
+                    this.setState({
+                        imgResize: canvas.toDataURL()
+                    }, () => {
+                        let dataDecode = (this.state.imgResize).split(',')[1]
+                        this.setState({
+                            imageBinary: dataDecode
+                        })
+                    })
+                }
+                img.src = URL.createObjectURL(file);
                 this.setState({
-                    profilePicture: reader.result,
-                    imageBinary: data
+                    profilePicture: reader.result
                 })
             }
             reader.readAsDataURL(file)
         })
     }
-
     handleSubmitImage = (e) => {
         e.preventDefault()
         let { imageBinary } = this.state
@@ -96,8 +121,7 @@ class EditUser extends Component {
             let secretKey = localStorage.getItem('secretKey')
             sign(crawTx, secretKey)
             let encodedTx = encode(crawTx).toString('base64')
-            console.log(crawTx)
-            console.log(encodedTx)
+
             Axios.post(BlockchainAPI.baseRoute,
                 {
                     "method": "broadcast_tx_sync",
@@ -105,7 +129,6 @@ class EditUser extends Component {
                     "params": [`${encodedTx}`],
                     "id": "dontcare"
                 }).then(res => {
-                    console.log(res.data)
                     this.setState({
                         errMess: res.data.result.log,
                         isSubmit: true
@@ -121,6 +144,7 @@ class EditUser extends Component {
 
     render() {
         const { isSubmit, errMess, profilePicture } = this.state
+
         let alertMess = null
         if (isSubmit) {
             if (errMess.length > 1) {
@@ -143,7 +167,7 @@ class EditUser extends Component {
                     </div>
                     <div className="panel-body">
                         <div className="media">
-                            {(profilePicture ? <img src={this.state.profilePicture} alt="#" /> : null)}
+                            {(profilePicture ? <img src={this.state.profilePicture} alt="#" className="profilePicture" /> : null)}
                             <form onSubmit={this.handleSubmitImage}>
                                 <label >Profile Picture</label>
                                 <input type="file" name="profilePicture" onChange={this.fileSelectedHandler} accept="image/*" />

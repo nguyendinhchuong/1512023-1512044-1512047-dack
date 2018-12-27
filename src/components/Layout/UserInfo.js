@@ -23,7 +23,8 @@ class UserInfo extends Component {
             name: null,
             exchange: [],
             photoUser: 'http://placehold.it/500x500',
-            transactions: []
+            transactions: [],
+            post:[]
         }
         let publicKey = localStorage.getItem('publicKey')
         accountInfo.account = publicKey //trơớc đó nó để key cứng, giờ phải chỉnh lãi theo key đăng nhập, mà bug cmnr :vđể a clone lại xem 
@@ -68,6 +69,9 @@ class UserInfo extends Component {
                                 }
                                 accountInfo.sequence = accountInfo.sequence + 1
                                 break;
+                            case 'post':
+                                accountInfo.sequence = accountInfo.sequence + 1
+                                break
 
                             default:
                                 break;
@@ -106,7 +110,7 @@ class UserInfo extends Component {
                         <Link to="/user/info"><img className="img-responsive" alt="demo" src={this.props.user.photoUser} /></Link>
                         <div className="user-info">
 
-                            <h4 style={{overflow: 'hidden'}} className="userName"><Link to={"/user"}>{this.props.user.name}</Link></h4>
+                            <h4 className="userName"><Link to={"/account/" + this.props.user.account}>{this.props.user.name}</Link></h4>
                             <p><strong>Balance: </strong> {this.props.user.amount} CEL</p>
                             <p> = {this.props.user.amount / 100000000} TRE</p>
                             <p><strong>Energy:</strong></p>
@@ -155,8 +159,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         fetchUserData: (data) => {
             dispatch(fetchUserData(data))
         },
-    setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
-    setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
+        setFollowingList: list => dispatch({ type: 'FETCH_FOLLOWING_LIST', payload: list }),
+        setFollowerList: list => dispatch({ type: 'FETCH_FOLLOWER_LIST', payload: list })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
